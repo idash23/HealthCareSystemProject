@@ -1,2 +1,2 @@
-com\example\servingwebcontent\LoginController.class
-com\example\servingwebcontent\ServingWebContentApplication.class
+edu\okcu\healthcaresystem\ServingWebContentApplication.class
+edu\okcu\healthcaresystem\LoginController.class
