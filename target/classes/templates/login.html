@@ -8,18 +8,19 @@
 
     <body>
     <div class="container">
+        <form action="/login-post" method="POST">
         <div class="form">
             <div class="form-title">
                 <h1>Login in Health Care account</h1>
             </div>
             <div class="form-container">
                 <ul>
-                        <li><input type="text" placeholder="  Username" id="username"/></li>
-                        <li><input type="password" placeholder="  Password" id="password"></li>
-                        <li><button type="button">Log in</button></li>
+                        <li><input type="text" placeholder="  Username" name="username"/></li>
+                        <li><input type="password" placeholder="  Password" name="password"></li>
+                        <li><button type="submit">Log in</button></li>
+                        <li><span class="error" th:text="${message}"></span></li>
                         <li><a href=""><h5>Forget password?</h5></a></li>
                 </ul>
-
                 <div class="signUp">
                     <h5>
                         You don't have an account?
@@ -28,6 +29,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </div>
     </body>
 </html>

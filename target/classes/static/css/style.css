@@ -13,7 +13,7 @@
 
 .form{
     background-color: #FCFBFA;
-    width: 20%;
+    width: 50%;
     padding: 20px;
     border: solid black;
     height: auto;
@@ -49,6 +49,11 @@
 
 .form-container a:hover{
     color: slateblue;
+}
+
+.error {
+    color: red;
+    font-weight: 200;
 }
 
 .signUp{

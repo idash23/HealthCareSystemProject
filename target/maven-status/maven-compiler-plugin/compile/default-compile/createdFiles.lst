@@ -1,2 +1,3 @@
 edu\okcu\healthcaresystem\ServingWebContentApplication.class
+edu\okcu\healthcaresystem\models\LoginInfo.class
 edu\okcu\healthcaresystem\LoginController.class

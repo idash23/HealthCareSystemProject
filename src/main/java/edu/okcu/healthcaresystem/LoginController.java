@@ -3,7 +3,6 @@ package edu.okcu.healthcaresystem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import edu.okcu.healthcaresystem.models.LoginInfo;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
