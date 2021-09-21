@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Login</title>
         <link th:href="@{/css/style.css}" rel="stylesheet" />
     </head>
 
@@ -15,8 +15,8 @@
             </div>
             <div class="form-container">
                 <ul>
-                        <li><input type="text" placeholder="  Username" name="username"/></li>
-                        <li><input type="password" placeholder="  Password" name="password"></li>
+                        <li><input type="text" placeholder="Username" name="username"/></li>
+                        <li><input type="password" placeholder="Password" name="password"></li>
                         <li><button type="submit">Log in</button></li>
                         <li><span class="error" th:text="${message}"></span></li>
                         <li><a href=""><h5>Forget password?</h5></a></li>
@@ -24,7 +24,7 @@
                 <div class="signUp">
                     <h5>
                         You don't have an account?
-                        <a href="">Sign up</a>
+                        <a href="/register">Sign up</a>
                     </h5>
                 </div>
             </div>

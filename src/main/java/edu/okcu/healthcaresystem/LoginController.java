@@ -13,6 +13,11 @@ public class LoginController {
 		return "login";
 	}
 
+	@GetMapping("/register")
+	public String register() {
+		return "register";
+	}
+
 	@PostMapping(value="/login-post")
 	public String loginPost(@RequestParam("username") String username, 
 							@RequestParam("password") String password,
@@ -23,6 +28,19 @@ public class LoginController {
 			String message = "Error logging in";
 			model.addAttribute("message", message);
 			return "login";
+		}
+	}
+
+	@PostMapping(value="/register-post")
+	public String registerPost(@RequestParam("password") String password, 
+							@RequestParam("cPassword") String cPassword,
+							Model model) {
+		if (password.equals(cPassword)) {
+			return "login";
+		} else {
+			String message = "Passwords are not matching";
+			model.addAttribute("message", message);
+			return "register";
 		}
 	}
 
