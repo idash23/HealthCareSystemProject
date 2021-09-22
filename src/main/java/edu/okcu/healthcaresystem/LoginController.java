@@ -23,7 +23,7 @@ public class LoginController {
 							@RequestParam("password") String password,
 							Model model) {
 		if (username.equals("demo") && password.equals("demo")) {
-			return "dashboard";
+			return "dashboard-doctor";
 		} else {
 			String message = "Error logging in";
 			model.addAttribute("message", message);
