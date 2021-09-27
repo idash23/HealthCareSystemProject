@@ -18,6 +18,11 @@ public class LoginController {
 		return "register";
 	}
 
+	@GetMapping("/forget-password")
+	public String forget() {
+		return "forget-password";
+	}
+
 	@PostMapping(value="/login-post")
 	public String loginPost(@RequestParam("username") String username, 
 							@RequestParam("password") String password,
@@ -42,6 +47,13 @@ public class LoginController {
 			model.addAttribute("message", message);
 			return "register";
 		}
+	}
+
+	@PostMapping(value="/forget-post")
+	public String forgetPost(@RequestParam("email") String email) {
+		//check if email exist
+		
+		return "forget-password";
 	}
 
 }
