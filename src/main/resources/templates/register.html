@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Register</title>
-        <link th:href="@{/css/style.css}" rel="stylesheet" />
-    </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
 
-    <body>
-    <div class="container">
-        <form action="/register-post" method="POST">
-        <div class="form">
-            <div class="form-title">
-                <h1>Create an Health Care account</h1>
-            </div>
-            <div class="form-container">
-                <ul>
-                        <li><input type="text" placeholder="Username" name="username"/></li>
-                        <li><input type="text" placeholder="Email" name="email"/></li>
-                        <li><input type="date" placeholder="Date of Birth" name="DOB"/></li>
-                        <li><input type="password" placeholder="Password" name="password"></li>
-                        <li><input type="password" placeholder="Confirm Password" name="cPassword"></li>
-                        <li><button type="submit">Register</button></li>
-                        <li><span class="error" th:text="${message}"></span></li>
-                </ul>
-                <div class="signUp">
-                    <h5>
-                        Already have an account
-                        <a href="/login">Log in</a>
-                    </h5>
-                </div>
-            </div>
+<body>
+<div class="container">
+  <form action="/register-post" method="POST">
+    <div class="form">
+      <div class="form-title">
+        <h1>Create an Health Care account</h1>
+      </div>
+      <div class="form-container">
+        <ul>
+          <li><input type="text" placeholder="Username" name="username"/></li>
+          <li><input type="text" placeholder="Email" name="email"/></li>
+          <li><input type="date" placeholder="Date of Birth" name="DOB"/></li>
+          <li><input type="password" placeholder="Password" name="password"></li>
+          <li><input type="password" placeholder="Confirm Password" name="cPassword"></li>
+          <li><button type="submit">Register</button></li>
+          <li><span class="error" th:text="${message}"></span></li>
+        </ul>
+        <div class="signUp">
+          <h5>
+            Already have an account
+            <a href="/login">Log in</a>
+          </h5>
         </div>
-        </form>
+      </div>
     </div>
-    </body>
+  </form>
+</div>
+</body>
 </html>

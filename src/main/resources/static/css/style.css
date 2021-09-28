@@ -72,8 +72,8 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 40px;
-  }
-  
+}
+
 .sideNav a {
     padding: 5px 5px 5px 50px;
     text-decoration: none;
@@ -82,18 +82,18 @@
     display: block;
     transition: 0.3s;
 }
-  
+
 .sideNav a:hover {
     color: #9B7E4B;
 }
-  
+
 .sideNav .closebtn {
     position: absolute;
     top: 0;
     right: 13px;
     font-size: 36px;
 }
-  
+
 #main {
     transition: margin-left .5s;
     padding: 16px;
