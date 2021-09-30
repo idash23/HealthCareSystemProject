@@ -15,9 +15,18 @@
       </div>
       <div class="form-container">
         <ul>
-          <li><input type="text" placeholder="Username" name="username"/></li>
-          <li><input type="text" placeholder="Email" name="email"/></li>
-          <li><input type="date" placeholder="Date of Birth" name="DOB"/></li>
+          <li>
+            <select name="status" id="status">
+              <option value="" disabled selected hidden>Register as</option>
+              <option value="patient">Patient</option>
+              <option value="doctor">Doctor</option>
+            </select>
+          </li>
+          <li><input type="text" placeholder="Username" name="username"></li>
+          <li><input type="text" placeholder="Email" name="email"></li>
+
+          <li><input type="text" placeholder="Date of Birth"
+                     onfocus="(this.type='date')" onblur="(this.type='text')" name="DOB"> </li>
           <li><input type="password" placeholder="Password" name="password"></li>
           <li><input type="password" placeholder="Confirm Password" name="cPassword"></li>
           <li><button type="submit">Register</button></li>

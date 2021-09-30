@@ -24,6 +24,16 @@ public class LoginController {
         return "forget-password";
     }
 
+    @GetMapping("/doctor-add-patient")
+    public String addPatient() {
+        return "doctor-add-patient";
+    }
+
+    @GetMapping("/dashboard-doctor")
+    public String dashboardDoctor() {
+        return "dashboard-doctor";
+    }
+
     @PostMapping(value="/login-post")
     public String loginPost(@RequestParam("username") String username,
                             @RequestParam("password") String password,
