@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard for Patient</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div id="mySideNav" class="sideNav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Schedule</a>
+    <a href="#">Doctors</a>
+    <a href="#">Insurance</a>
+    <a href="#">Settings</a>
+    <a href="#">Log out</a>
+</div>
+
+<div id="main">
+    <h1 style="cursor: pointer;" onclick="openNav()">[Patient Name]</h1>
+
+    <input type="text" name="toSearch" class="toSearch" placeholder="Search for ">
+
+    <div>
+        <table style = "border: 1px solid black">
+            <tr>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Insurance</th>
+                <th>See more details</th>
+            </tr>
+            <tr>
+                <td>John</td>
+                <td>Thomas</td>
+                <td>Adams</td>
+                <td>1996-3-7</td>
+                <td>Yes</td>
+                <td><a href=""> ... </a></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySideNav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySideNav").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+    }
+</script>
+</body>
+</html>
