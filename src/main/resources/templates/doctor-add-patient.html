@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Add Patient Info</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div id="mySideNav" class="sideNav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="dashboard-doctor">Home</a>
+    <a href="#">Schedule</a>
+    <a href="#">Patients</a>
+    <a href="doctor-add-patient">Add Patient Info</a>
+    <a href="#">Settings</a>
+    <a href="#">Log out</a>
+</div>
+
+<div id="main">
+    <h1 style="cursor: pointer;" onclick="openNav()">[Doctor Name]</h1><br>
+    <h2>Add Patient Info</h2><br>
+
+    <div class="form-container" style="width:50%; margin:auto;">
+        <ul>
+            <li><h3>Vitals </h3></li>
+            <li><input type="text" placeholder="Patient's Email" name="email"></li>
+            <li><input type="text" placeholder="Height" name="height"></li>
+            <li><input type="text" placeholder="Weight" name="weight"></li>
+            <li><input type="text" placeholder="Vision" name="vision"></li>
+            <li><input type="text" placeholder="Blood Pressure" name="bloodPress"></li>
+            <li><input type="text" placeholder="Pulse Rate" name="pulseRate"></li>
+            <li><h3>Vaccine (y/n)</h3></li>
+            <li><input type="text" placeholder="Chickenpox" name="chickenpox"></li>
+            <li><input type="text" placeholder="Diphtheria" name="diphtheria"></li>
+            <li><input type="text" placeholder="Flu" name="flu "></li>
+            <li><input type="text" placeholder="Hepatitis A" name="hepatitisA"></li>
+            <li><input type="text" placeholder="Hepatitis B" name="hepatitisB"></li>
+            <li><input type="text" placeholder="MMR" name="mmr"></li>
+            <li><input type="text" placeholder="Tetanus" name="Tetanus"></li>
+            <li><input type="text" placeholder="Polio" name="polio"></li>
+            <li><h3>Surgery</h3></li>
+            <!-- add loop or something to be able to add multiple surgery -->
+            <li><input type="text" placeholder="Recent Surgery" name="surgery"></li>
+            <li><label style="float:left;" for="file">Upload Surgery Picture</label>
+                <span style="display: block; overflow: hidden; padding: 0px 4px 0px 6px;">
+                <input type="file" id="file"></span>
+            </li>
+            <li><h3>Insurance</h3></li>
+            <li><input type="text" placeholder="Insurance" name="insurance"></li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySideNav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySideNav").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+    }
+</script>
+</body>
+</html>
