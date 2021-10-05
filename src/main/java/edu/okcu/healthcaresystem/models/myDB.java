@@ -22,10 +22,10 @@ try {
 
       Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(jdbcURL, dbUser,dbPassword);
-                  System.out.println("Connection is sucesssfull to the database: " + jdbcURL);
-                  String query = "select * from person";
-                  Statement statement = connection.createStatement();
-                  statement.executeQuery(query);
+                  System.out.println("Connection is successfull to the database: " + jdbcURL);
+              //    String query = "select * from person";
+               //   Statement statement = connection.createStatement();
+                 // statement.executeQuery(query);
 
 
         } catch (ClassNotFoundException e) {
