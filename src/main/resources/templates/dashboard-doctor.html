@@ -20,7 +20,9 @@
 <div id="main">
   <h1 style="cursor: pointer;" onclick="openNav()">[Doctor Name]</h1>
 
-  <input type="text" name="toSearch" class="toSearch" placeholder="Search for ">
+  <form action="/search-patient-post" method="POST">
+    <input type="text" name="toSearch" class="toSearch" placeholder="Search for ">
+  </form>
 
   <div>
     <table style = "border: 1px solid black">

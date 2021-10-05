@@ -22,33 +22,36 @@
     <h2>Add Patient Info</h2><br>
 
     <div class="form-container" style="width:50%; margin:auto;">
-        <ul>
-            <li><h3>Vitals </h3></li>
-            <li><input type="text" placeholder="Patient's Email" name="email"></li>
-            <li><input type="text" placeholder="Height" name="height"></li>
-            <li><input type="text" placeholder="Weight" name="weight"></li>
-            <li><input type="text" placeholder="Vision" name="vision"></li>
-            <li><input type="text" placeholder="Blood Pressure" name="bloodPress"></li>
-            <li><input type="text" placeholder="Pulse Rate" name="pulseRate"></li>
-            <li><h3>Vaccine (y/n)</h3></li>
-            <li><input type="text" placeholder="Chickenpox" name="chickenpox"></li>
-            <li><input type="text" placeholder="Diphtheria" name="diphtheria"></li>
-            <li><input type="text" placeholder="Flu" name="flu "></li>
-            <li><input type="text" placeholder="Hepatitis A" name="hepatitisA"></li>
-            <li><input type="text" placeholder="Hepatitis B" name="hepatitisB"></li>
-            <li><input type="text" placeholder="MMR" name="mmr"></li>
-            <li><input type="text" placeholder="Tetanus" name="Tetanus"></li>
-            <li><input type="text" placeholder="Polio" name="polio"></li>
-            <li><h3>Surgery</h3></li>
-            <!-- add loop or something to be able to add multiple surgery -->
-            <li><input type="text" placeholder="Recent Surgery" name="surgery"></li>
-            <li><label style="float:left;" for="file">Upload Surgery Picture</label>
-                <span style="display: block; overflow: hidden; padding: 0px 4px 0px 6px;">
-                <input type="file" id="file"></span>
-            </li>
-            <li><h3>Insurance</h3></li>
-            <li><input type="text" placeholder="Insurance" name="insurance"></li>
-        </ul>
+        <form action="/add-patient-post" method="POST">
+            <ul>
+                <li><h3>Vitals </h3></li>
+                <li><input type="text" placeholder="Patient's Email" name="email"></li>
+                <li><input type="text" placeholder="Height" name="height"></li>
+                <li><input type="text" placeholder="Weight" name="weight"></li>
+                <li><input type="text" placeholder="Vision" name="vision"></li>
+                <li><input type="text" placeholder="Blood Pressure" name="bloodPress"></li>
+                <li><input type="text" placeholder="Pulse Rate" name="pulseRate"></li>
+                <li><h3>Vaccine (y/n)</h3></li>
+                <li><input type="text" placeholder="Chickenpox" name="chickenpox"></li>
+                <li><input type="text" placeholder="Diphtheria" name="diphtheria"></li>
+                <li><input type="text" placeholder="Flu" name="flu "></li>
+                <li><input type="text" placeholder="Hepatitis A" name="hepatitisA"></li>
+                <li><input type="text" placeholder="Hepatitis B" name="hepatitisB"></li>
+                <li><input type="text" placeholder="MMR" name="mmr"></li>
+                <li><input type="text" placeholder="Tetanus" name="tetanus"></li>
+                <li><input type="text" placeholder="Polio" name="polio"></li>
+                <li><h3>Surgery</h3></li>
+                <!-- add loop or something to be able to add multiple surgery -->
+                <li><input type="text" placeholder="Recent Surgery" name="surgery"></li>
+                <li><label style="float:left;" for="file">Upload Surgery Picture</label>
+                    <span style="display: block; overflow: hidden; padding: 0px 4px 0px 6px;">
+                    <input type="file" id="file"></span>
+                </li>
+                <li><h3>Insurance</h3></li>
+                <li><input type="text" placeholder="Insurance" name="insurance"></li>
+                <li><button type="submit">Submit</button></li>
+            </ul>
+        </form>
     </div>
 
 </div>

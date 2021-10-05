@@ -1,9 +1,11 @@
 package edu.okcu.healthcaresystem;
 
+import edu.okcu.healthcaresystem.models.myDB;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -58,6 +60,28 @@ public class LoginController {
             model.addAttribute("message", message);
             return "register";
         }
+    }
+
+    @PostMapping(value="/add-patient-post")
+    public String addPatientPost(@RequestParam("email") String email,@RequestParam("height") String height,
+                                 @RequestParam("weigth") String weight,@RequestParam("vision") String vision,
+                                 @RequestParam("bloodPress") String bloodPress,@RequestParam("pulseRate") String pulseRate,
+                                 @RequestParam("chickenpox") String chickenpox,@RequestParam("diphtheria") String diphtheria,
+                                 @RequestParam("flu") String flu,@RequestParam("hepatitisA") String hepatitisA,
+                                 @RequestParam("hepatitisB") String hepatitisB,@RequestParam("mmr") String mmr,
+                                 @RequestParam("tetanus") String tetanus,@RequestParam("polio") String polio,
+                                 @RequestParam("surgery") String surgery,@RequestParam("insurance") String insurance) {
+        myDB database = new myDB();
+        database.addPatientInfo(email, height, weight, vision, bloodPress, pulseRate, chickenpox, diphtheria, flu, hepatitisA,
+                hepatitisB, mmr, tetanus, polio, surgery, insurance);
+        return "doctor-add-patient";
+    }
+
+    @PostMapping(value="/search-patient-post")
+    public String searchPatient(@RequestParam("toSearch") String toSearch) {
+        myDB database = new myDB();
+        database.search(toSearch);
+        return "dashboard-doctor";
     }
 
     @PostMapping(value="/forget-post")
