@@ -58,7 +58,7 @@ public class myDB {
         Connection conn = connectDatabase();
         try {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO Patient values (?, ?, ?, ?, ?, ?, ?, ?," +
-                    " ?, ?, ?, ?, ?, ?, ?) WHERE PatientID = ?;");
+                    " ?, ?, ?, ?, ?, ?, ?) WHERE email = ?;");
             statement.setString(1, height); statement.setString(2, weight);
             statement.setString(3, vision); statement.setString(4, bloodPress);
             statement.setString(5, pulseRate); statement.setString(6, chickenpox);
