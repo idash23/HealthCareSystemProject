@@ -57,8 +57,10 @@ public class myDB {
                                      String hepatitisB,String mmr, String tetanus,String polio, String surgery,String insurance) {
         Connection conn = connectDatabase();
         try {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO Patient values (?, ?, ?, ?, ?, ?, ?, ?," +
-                    " ?, ?, ?, ?, ?, ?, ?) WHERE email = ?;");
+            PreparedStatement statement = conn.prepareStatement("UPDATE Patient SET" +
+                    "height=?,weight=?,vision=?,bloodPress=?,pulseRate=?,chickenpox=?,diphtheria=?," +
+                    "flu=?,hepatitisA=?,hepatitisB=?,mmr=?,tetanus=?,polio=?,surgery=?,insurance=?" +
+                    " WHERE email = ?;");
             statement.setString(1, height); statement.setString(2, weight);
             statement.setString(3, vision); statement.setString(4, bloodPress);
             statement.setString(5, pulseRate); statement.setString(6, chickenpox);
