@@ -31,6 +31,36 @@ public class myDB {
         return connection;
     }//connectDatabase
 
+    public static void signUp(String email, String password, String status, String DOB, String fName, String mName, String lName, String gender) {
+        Connection conn = connectDatabase();
+        try {
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO User VALUES(0, ?, ?, 'saltToDefine', ?);");
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            stmt.setString(3, status);
+            stmt.executeQuery();
+
+            PreparedStatement stmt1 = conn.prepareStatement("SELECT userID FROM user WHERE email = ?");
+            stmt1.setString(1, email);
+            ResultSet rs = stmt1.executeQuery();
+            String userID = rs.getString("userID");
+
+            PreparedStatement stmt2 = conn.prepareStatement("INSERT INTO Patient VALUES(?, ?, ?, ?, ?, ?, ?, null , null ,null ,null\n" +
+                    ",null ,null ,null ,null ,null ,null ,null ,null ,null ,null ,null);");
+            stmt2.setString(1, userID);
+            stmt2.setString(2, email);
+            stmt2.setString(3, DOB);
+            stmt2.setString(4, fName);
+            stmt2.setString(5, mName);
+            stmt2.setString(6, lName);
+            stmt2.setString(7, gender);
+            stmt2.executeQuery();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }//catch
+    }
+
     public static void search(String toSearch) {
         Connection conn = connectDatabase();
         try {

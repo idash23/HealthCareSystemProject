@@ -49,10 +49,14 @@ public class LoginController {
     }
 
     @PostMapping(value="/register-post")
-    public String registerPost(@RequestParam("password") String password,
-                               @RequestParam("cPassword") String cPassword,
-                               Model model) {
+    public String registerPost(@RequestParam("status") String status, @RequestParam("fName") String fName,
+                               @RequestParam("mName") String mName, @RequestParam("lName") String lName,
+                               @RequestParam("gender") String gender, @RequestParam("email") String email,
+                               @RequestParam("DOB") String DOB, @RequestParam("password") String password,
+                               @RequestParam("cPassword") String cPassword, Model model) {
         if (password.equals(cPassword)) {
+            myDB database = new myDB();
+            database.signUp(email, password, status, DOB, fName, mName, lName, gender);
             return "login";
         } else {
             String message = "Passwords are not matching";
