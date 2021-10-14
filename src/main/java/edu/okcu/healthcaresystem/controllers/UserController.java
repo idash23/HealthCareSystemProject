@@ -1,6 +1,8 @@
 package edu.okcu.healthcaresystem.controllers;
 
+import edu.okcu.healthcaresystem.models.Patient;
 import edu.okcu.healthcaresystem.models.User;
+import edu.okcu.healthcaresystem.repository.PatientRepository;
 import edu.okcu.healthcaresystem.repository.UserRepository;
 import edu.okcu.healthcaresystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ public class UserController {
     @Autowired
     UserService userService;
     UserRepository userRepo;
+    PatientRepository patientRepo;
 
     @GetMapping("/")
     public String login(Model model) {
@@ -27,7 +30,7 @@ public class UserController {
         return "user/login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/process_login")
     public String login(@ModelAttribute("user") User user ) {
         User authUser = userService.login(user.getEmail(), user.getPassword());
 
@@ -60,6 +63,10 @@ public class UserController {
     @PostMapping(value="/user/register-post")
     public String registerPost(User user) {
         userRepo.save(user);
+        var email = user.getEmail();
+        Patient p = new Patient();
+        p.setEmail(email);
+        patientRepo.save(p);
         return "doctor/dashboard";
     }
 
