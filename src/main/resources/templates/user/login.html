@@ -8,15 +8,15 @@
 
 <body>
 <div class="container">
-    <form action="/login-post" method="POST">
+    <form th:action="@{/login}" th:object="${user}" method="POST">
         <div class="form">
             <div class="form-title">
                 <h1>Login in Health Care account</h1>
             </div>
             <div class="form-container">
                 <ul>
-                    <li><input type="text" placeholder="Username" name="username"/></li>
-                    <li><input type="password" placeholder="Password" name="password"></li>
+                    <li><input type="email" placeholder="Email" th:field="*{email}"/></li>
+                    <li><input type="password" placeholder="Password" th:field="*{password}"></li>
                     <li><button type="submit">Log in</button></li>
                     <li><span class="error" th:text="${message}"></span></li>
                     <li><a href="/forget-password"><h5>Forget password?</h5></a></li>

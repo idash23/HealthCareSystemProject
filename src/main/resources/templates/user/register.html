@@ -8,7 +8,7 @@
 
 <body>
 <div class="container">
-  <form action="/register-post" method="POST">
+  <form th:action="@{/user/register}" th:object="${user}" method="POST">
     <div class="form">
       <div class="form-title">
         <h1>Create an Health Care account</h1>
@@ -22,12 +22,11 @@
               <option value="doctor">Doctor</option>
             </select>
           </li>
-          <li><input type="text" placeholder="Username" name="username"></li>
-          <li><input type="text" placeholder="Email" name="email"></li>
+          <li><input type="text" placeholder="Email" th:field="*{email}"></li>
 
           <li><input type="text" placeholder="Date of Birth"
                      onfocus="(this.type='date')" onblur="(this.type='text')" name="DOB"> </li>
-          <li><input type="password" placeholder="Password" name="password"></li>
+          <li><input type="password" placeholder="Password" th:field="*{password}"></li>
           <li><input type="password" placeholder="Confirm Password" name="cPassword"></li>
           <li><button type="submit">Register</button></li>
           <li><span class="error" th:text="${message}"></span></li>
