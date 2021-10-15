@@ -16,6 +16,9 @@ public class User {
     @Column(nullable = false, length = 64)
     private String password;
 
+    @Column(name="usertype")
+    private String userType;
+
     public Long getUserID() {
         return userID;
     }
@@ -39,5 +42,9 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setUserType(String userType) { this.userType = userType; }
+
+    public String getUserType() { return userType; }
 
 }

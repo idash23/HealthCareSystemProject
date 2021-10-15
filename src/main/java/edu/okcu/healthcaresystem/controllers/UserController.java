@@ -35,8 +35,15 @@ public class UserController {
         User authUser = userService.login(user.getEmail(), user.getPassword());
 
         System.out.print(authUser);
+        System.out.println(" *** user type: " + userService.userType(user.getEmail()));
         if (Objects.nonNull(authUser)) {
-            return "redirect:/doctor";
+            String path = "redirect:/";
+            if(userService.userType(user.getEmail()).equals("doctor")){
+                path += "doctor";
+            } else if(userService.userType(user.getEmail()).equals("patient")){
+                path += "patient";
+            }//else if
+            return path;
         } else {
             return "redirect:/";
         }

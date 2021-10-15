@@ -16,6 +16,11 @@ public class UserService {
         return user;
     }
 
+    public String userType(String email) {
+        String userType = repo.findUserType(email);
+        return userType;
+    }
+
     public void save(User user) {
         repo.save(user);
     }

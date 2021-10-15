@@ -23,22 +23,22 @@
 
     <div>
         <table style = "border: 1px solid black">
+            <thead class="thead-dark">
             <tr>
+                <th>User ID</th>
+                <th>E-mail</th>
                 <th>First Name</th>
-                <th>Middle Name</th>
                 <th>Last Name</th>
-                <th>Date of Birth</th>
-                <th>Insurance</th>
-                <th>See more details</th>
             </tr>
-            <tr>
-                <td>John</td>
-                <td>Thomas</td>
-                <td>Adams</td>
-                <td>1996-3-7</td>
-                <td>Yes</td>
-                <td><a href=""> ... </a></td>
+            </thead>
+            <tbody>
+            <tr th:each="doctor: ${listDoctors}">
+                <td th:text="${doctor.userID}">User ID</td>
+                <td th:text="${doctor.email}">E-mail</td>
+                <td th:text="${doctor.fName}">First Name</td>
+                <td th:text="${doctor.lName}">Last Name</td>
             </tr>
+            </tbody>
         </table>
     </div>
 
