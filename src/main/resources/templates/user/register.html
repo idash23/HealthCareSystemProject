@@ -8,33 +8,34 @@
 
 <body>
 <div class="container">
-  <form th:action="@{/user/register}" th:object="${user}" method="POST">
+  <form th:action="@{/user/register-post}" th:object="${user}" method="POST">
     <div class="form">
       <div class="form-title">
-        <h1>Create an Health Care account</h1>
+        <h1>Create an Health Care account (Part 1/2)</h1>
       </div>
       <div class="form-container">
         <ul>
           <li>
-            <select name="status" id="status">
+            <select name="status" id="status" th:field="*{userType}">
               <option value="" disabled selected hidden>Register as</option>
               <option value="patient">Patient</option>
               <option value="doctor">Doctor</option>
             </select>
           </li>
+
           <li><input type="text" placeholder="Email" th:field="*{email}"></li>
 
-          <li><input type="text" placeholder="Date of Birth"
-                     onfocus="(this.type='date')" onblur="(this.type='text')" name="DOB"> </li>
+          <!--<li><input type="text" placeholder="Date of Birth"
+                     onfocus="(this.type='date')" onblur="(this.type='text')" name="DOB"> </li> -->
           <li><input type="password" placeholder="Password" th:field="*{password}"></li>
           <li><input type="password" placeholder="Confirm Password" name="cPassword"></li>
-          <li><button type="submit">Register</button></li>
+          <li><button type="submit">Next Step</button></li>
           <li><span class="error" th:text="${message}"></span></li>
         </ul>
         <div class="signUp">
           <h5>
             Already have an account
-            <a href="/login">Log in</a>
+            <a href="user/login">Log in</a>
           </h5>
         </div>
       </div>

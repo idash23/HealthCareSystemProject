@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>doctor-info</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div class="container">
+    <form th:action="@{/user/detail-info/doctor_post/{email}(email=${param.email})}" th:object="${doctor}" method="POST">
+        <div class="form">
+            <div class="form-title">
+                <h1>Create an Health Care account (Part 2/2)</h1>
+            </div>
+            <div class="form-container">
+                <ul>
+
+                    <li><input type="text" placeholder="First Name" th:field="*{fName}"></li>
+                    <li><input type="text" placeholder="Middle Name (1 letter)" th:field="*{mName}"></li>
+                    <li><input type="text" placeholder="Last Name" th:field="*{lName}"></li>
+
+                    <li><input type="text" placeholder="Date of Birth"
+                               onfocus="(this.type='date')" onblur="(this.type='text')" name="DOB" th:field="*{DOB}"></li>
+
+                    <li>
+                        <select name="gender" id="gender" th:field="*{gender}">
+                            <option value="" disabled selected hidden>Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </li>
+
+                    <li><button type="submit">Register</button></li>
+                    <li><span class="error" th:text="${message}"></span></li>
+                </ul>
+
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -13,6 +13,9 @@ public class Patient {
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 
+    @Column(name="DOB")
+    private String DOB;
+
     @Column(name="first_name")
     private String fName;
 
@@ -22,13 +25,12 @@ public class Patient {
     @Column(name="last_name")
     private String lName;
 
-    public Long getUserID() {
-        return userID;
-    }
+    @Column(name="gender")
+    private String gender;
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
+    public Long getUserID() { return userID; }
+
+    public void setUserID(Long userID) { this.userID = userID; }
 
     public String getEmail() {
         return email;
@@ -37,6 +39,10 @@ public class Patient {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getDOB() { return DOB; }
+
+    public void setDOB(String DOB) { this.DOB = DOB; }
 
     public String getfName() {
         return fName;
@@ -60,6 +66,14 @@ public class Patient {
 
     public void setlName(String lName) {
         this.lName = lName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }

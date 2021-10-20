@@ -1,7 +1,9 @@
 package edu.okcu.healthcaresystem.controllers;
 
+import edu.okcu.healthcaresystem.models.Doctor;
 import edu.okcu.healthcaresystem.models.Patient;
 import edu.okcu.healthcaresystem.models.User;
+import edu.okcu.healthcaresystem.repository.DoctorRepository;
 import edu.okcu.healthcaresystem.repository.PatientRepository;
 import edu.okcu.healthcaresystem.repository.UserRepository;
 import edu.okcu.healthcaresystem.services.UserService;
@@ -23,6 +25,7 @@ public class UserController {
     UserService userService;
     UserRepository userRepo;
     PatientRepository patientRepo;
+    DoctorRepository doctorRepo;
 
     @GetMapping("/")
     public String login(Model model) {
@@ -33,9 +36,7 @@ public class UserController {
     @PostMapping("/process_login")
     public String login(@ModelAttribute("user") User user ) {
         User authUser = userService.login(user.getEmail(), user.getPassword());
-
         System.out.print(authUser);
-        System.out.println(" *** user type: " + userService.userType(user.getEmail()));
         if (Objects.nonNull(authUser)) {
             String path = "redirect:/";
             if(userService.userType(user.getEmail()).equals("doctor")){
@@ -69,12 +70,35 @@ public class UserController {
 
     @PostMapping(value="/user/register-post")
     public String registerPost(User user) {
-        userRepo.save(user);
-        var email = user.getEmail();
-        Patient p = new Patient();
-        p.setEmail(email);
-        patientRepo.save(p);
-        return "doctor/dashboard";
+        System.out.println(user.getUserType());
+        userService.save(user);
+
+        String path = "redirect:/user/detail-info/";
+        if(user.getUserType().equals("doctor")){
+            Doctor doctor = new Doctor();
+            doctor.setUserID(userService.userID(user.getEmail()));
+            doctor.setEmail(user.getEmail());
+            userService.saveDoc(doctor);
+            path+="doctor?email="+doctor.getEmail();
+        }else if(user.getUserType().equals("patient")){
+            // *** to make ***
+            path+="patient";
+        }
+        return path;
+    }
+
+    @GetMapping("/user/detail-info/doctor")
+    public String doctorInfo(@ModelAttribute("doctor") Doctor doctor, @RequestParam String email) {
+        doctor.setEmail(email);
+        return "user/detail-info/doctor";
+    }
+
+    @PostMapping(value="/user/detail-info/doctor_post/{email}")
+    public String doctorInfoPost(Doctor doctor, @PathVariable String email) {
+        doctor.setEmail(email);
+        userService.updateDoc(doctor);
+
+        return "redirect:/doctor";
     }
 
     @PostMapping(value="/forget-post")
