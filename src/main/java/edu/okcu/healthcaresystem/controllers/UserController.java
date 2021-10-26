@@ -8,10 +8,17 @@ import edu.okcu.healthcaresystem.repository.PatientRepository;
 import edu.okcu.healthcaresystem.repository.UserRepository;
 import edu.okcu.healthcaresystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 
@@ -23,9 +30,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    UserRepository userRepo;
-    PatientRepository patientRepo;
-    DoctorRepository doctorRepo;
+    UserRepository userRepository;
+    PatientRepository patientRepository;
+    DoctorRepository doctorRepository;
 
     @GetMapping("/")
     public String login(Model model) {
@@ -34,14 +41,14 @@ public class UserController {
     }
 
     @PostMapping("/process_login")
-    public String login(@ModelAttribute("user") User user ) {
+    public String login(@ModelAttribute("user") User user) {
         User authUser = userService.login(user.getEmail(), user.getPassword());
         System.out.print(authUser);
         if (Objects.nonNull(authUser)) {
             String path = "redirect:/";
-            if(userService.userType(user.getEmail()).equals("doctor")){
+            if (userService.userType(user.getEmail()).equals("doctor")) {
                 path += "doctor";
-            } else if(userService.userType(user.getEmail()).equals("patient")){
+            } else if (userService.userType(user.getEmail()).equals("patient")) {
                 path += "patient";
             }//else if
             return path;
@@ -68,21 +75,21 @@ public class UserController {
         return "doctor-add-patient";
     }
 
-    @PostMapping(value="/user/register-post")
+    @PostMapping(value = "/user/register-post")
     public String registerPost(User user) {
         System.out.println(user.getUserType());
         userService.save(user);
 
         String path = "redirect:/user/detail-info/";
-        if(user.getUserType().equals("doctor")){
+        if (user.getUserType().equals("doctor")) {
             Doctor doctor = new Doctor();
             doctor.setUserID(userService.userID(user.getEmail()));
             doctor.setEmail(user.getEmail());
             userService.saveDoc(doctor);
-            path+="doctor?email="+doctor.getEmail();
-        }else if(user.getUserType().equals("patient")){
+            path += "doctor?email=" + doctor.getEmail();
+        } else if (user.getUserType().equals("patient")) {
             // *** to make ***
-            path+="patient";
+            path += "patient";
         }
         return path;
     }
@@ -93,7 +100,7 @@ public class UserController {
         return "user/detail-info/doctor";
     }
 
-    @PostMapping(value="/user/detail-info/doctor_post/{email}")
+    @PostMapping(value = "/user/detail-info/doctor_post/{email}")
     public String doctorInfoPost(Doctor doctor, @PathVariable String email) {
         doctor.setEmail(email);
         userService.updateDoc(doctor);
@@ -101,7 +108,7 @@ public class UserController {
         return "redirect:/doctor";
     }
 
-    @PostMapping(value="/forget-post")
+    @PostMapping(value = "/forget-post")
     public String forgetPost(@RequestParam("email") String email, Model model) {
         //check if email exist
 
@@ -110,6 +117,22 @@ public class UserController {
 
         return "forget-password";
     }
+
+    // processing logout in controller
+
+    @GetMapping("/logout")
+    public String fetchSignoutSite(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+
+        return "/";
+
+    }
+}
+
+
 /*
     @PostMapping(value="/add-patient-post")
     public String addPatientPost(@RequestParam("email") String email,@RequestParam("height") String height,
@@ -198,4 +221,3 @@ public class UserController {
 
      */
 
-}

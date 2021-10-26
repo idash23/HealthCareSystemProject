@@ -7,6 +7,8 @@ import edu.okcu.healthcaresystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -14,7 +16,7 @@ public class UserService {
     private UserRepository repo;
 
     @Autowired
-    private DoctorRepository doctorRepo;
+    private DoctorRepository doctorRepository;
 
     public User login(String email, String password) {
         User user = repo.findByEmailAndPassword(email, password);
@@ -38,11 +40,16 @@ public class UserService {
     }
 
     public void saveDoc(Doctor doc) {
-        doctorRepo.save(doc);
+        doctorRepository.save(doc);
     }
 
     public void updateDoc(Doctor doctor) {
-        doctorRepo.updateDoctor(doctor.getDOB(), doctor.getfName(), doctor.getmName(), doctor.getlName(),
+        doctorRepository.updateDoctor(doctor.getDOB(), doctor.getfName(), doctor.getmName(), doctor.getlName(),
                 doctor.getGender(), doctor.getEmail());
+
+
     }
+
+
+
 }
