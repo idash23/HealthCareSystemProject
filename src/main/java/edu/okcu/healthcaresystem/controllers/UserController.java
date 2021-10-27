@@ -1,7 +1,7 @@
 package edu.okcu.healthcaresystem.controllers;
 
 import edu.okcu.healthcaresystem.models.Doctor;
-import edu.okcu.healthcaresystem.models.Patient;
+import edu.okcu.healthcaresystem.models.Person;
 import edu.okcu.healthcaresystem.models.User;
 import edu.okcu.healthcaresystem.repository.DoctorRepository;
 import edu.okcu.healthcaresystem.repository.PatientRepository;
@@ -15,10 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 
@@ -45,13 +43,7 @@ public class UserController {
         User authUser = userService.login(user.getEmail(), user.getPassword());
         System.out.print(authUser);
         if (Objects.nonNull(authUser)) {
-            String path = "redirect:/";
-            if (userService.userType(user.getEmail()).equals("doctor")) {
-                path += "doctor";
-            } else if (userService.userType(user.getEmail()).equals("patient")) {
-                path += "patient";
-            }//else if
-            return path;
+            return "redirect:/" + userService.userTypeByEmail(user.getEmail());
         } else {
             return "redirect:/";
         }
@@ -80,32 +72,24 @@ public class UserController {
         System.out.println(user.getUserType());
         userService.save(user);
 
-        String path = "redirect:/user/detail-info/";
-        if (user.getUserType().equals("doctor")) {
-            Doctor doctor = new Doctor();
-            doctor.setUserID(userService.userID(user.getEmail()));
-            doctor.setEmail(user.getEmail());
-            userService.saveDoc(doctor);
-            path += "doctor?email=" + doctor.getEmail();
-        } else if (user.getUserType().equals("patient")) {
-            // *** to make ***
-            path += "patient";
-        }
-        return path;
+        Person person = new Person();
+        person.setUserID(userService.userID(user.getEmail()));
+        userService.savePerson(person);
+
+        return "redirect:/user/detail-info/person?userID="+person.getUserID();
     }
 
-    @GetMapping("/user/detail-info/doctor")
-    public String doctorInfo(@ModelAttribute("doctor") Doctor doctor, @RequestParam String email) {
-        doctor.setEmail(email);
-        return "user/detail-info/doctor";
+    @GetMapping("/user/detail-info/person")
+    public String doctorInfo(@ModelAttribute("person") Person person, @RequestParam Long userID) {
+        person.setUserID(userID);
+        return "user/detail-info/person";
     }
 
-    @PostMapping(value = "/user/detail-info/doctor_post/{email}")
-    public String doctorInfoPost(Doctor doctor, @PathVariable String email) {
-        doctor.setEmail(email);
-        userService.updateDoc(doctor);
-
-        return "redirect:/doctor";
+    @PostMapping(value="/user/detail-info/person_post/{userID}")
+    public String doctorInfoPost(Person person, @PathVariable Long userID) {
+        person.setUserID(userID);
+        userService.updatePerson(person);
+        return "redirect:/"+ userService.userTypeByID(person.getUserID());
     }
 
     @PostMapping(value = "/forget-post")
