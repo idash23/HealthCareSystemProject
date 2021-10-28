@@ -1,25 +1,18 @@
 package edu.okcu.healthcaresystem.controllers;
 
-import edu.okcu.healthcaresystem.models.Doctor;
-import edu.okcu.healthcaresystem.models.Patient;
 import edu.okcu.healthcaresystem.repository.DoctorRepository;
 import edu.okcu.healthcaresystem.repository.PatientRepository;
 import edu.okcu.healthcaresystem.services.DoctorService;
-import edu.okcu.healthcaresystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 @Controller
 public class DoctorController {
 
     @Autowired
     PatientRepository patientRepository;
-
-    @Autowired
     DoctorRepository doctorRepository;
 
     @Autowired
@@ -50,11 +43,11 @@ public class DoctorController {
         //  model.addAttribute("userTitles" , userTitleService.getUserTitles());
 
         if (keyword != null) {
-            model.addAttribute("doctors", doctorService.findByKeyword(keyword));
+            model.addAttribute("listPatients", patientRepository.findByKeyword(keyword));
         } else {
-            model.addAttribute("doctors", doctorService.getDoctors());
+            model.addAttribute("listPatients", patientRepository.findAll());
         }
-        return "doctor/DoctorsSearch";
+        return "doctor/dashboard";
     }
 }
 

@@ -8,7 +8,7 @@
 
 <body>
 <div class="container">
-    <form th:action="@{/user/detail-info/doctor_post/{email}(email=${param.email})}" th:object="${doctor}" method="POST">
+    <form th:action="@{/user/detail-info/person_post/{userID}(userID=${param.userID})}" th:object="${person}" method="POST">
         <div class="form">
             <div class="form-title">
                 <h1>Create an Health Care account (Part 2/2)</h1>

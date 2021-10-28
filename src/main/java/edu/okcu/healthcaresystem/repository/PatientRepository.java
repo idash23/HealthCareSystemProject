@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-
-
+    @Query("SELECT d FROM Patient d WHERE d.fName LIKE %:keyword% OR d.lName LIKE  %:keyword%")
+    List<Patient> findByKeyword(@Param("keyword") String keyword);
 }

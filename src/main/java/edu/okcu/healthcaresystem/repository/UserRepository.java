@@ -9,7 +9,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmailAndPassword(String email, String password);
 
     @Query("SELECT u.userType FROM User u WHERE u.email = ?1")
-    String findUserType(String email);
+    String findUserTypeByEmail(String email);
+
+    @Query("SELECT u.userType FROM User u WHERE u.userID = ?1")
+    String findUserTypeByID(Long id);
 
     @Query("SELECT u.userID FROM User u WHERE u.email = ?1")
     Long findUserID(String email);
