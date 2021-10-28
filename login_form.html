@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="myStyle.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+    <div class="container">
+        <div class="form">
+            <div class="form-title">
+                <h1>Login in Health Care account</h1>
+            </div>
+
+            <form action="login_form.html" method="post">
+
+                <div class="form-container">
+                    <ul>
+                            <li><input type="text" placeholder="  Username" id="username"/></li>
+                            <li><input type="password" placeholder="  Password" id="password"></li>
+                            <li><button type="button" onclick="connect()">Log in</button></li>
+                            <li><a href=""><h5>Forget password?</h5></a></li>
+                    </ul>
+                    <div class="signUp">
+                        <h5>
+                            You don't have an account?
+                            <a href="">Sign up</a>
+                        </h5>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        <script>
+            function connect(){
+                console.log("Log in Clicked");
+
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                console.log(username, password)
+                $.ajax({
+                    type: "POST",
+                    url: "MySqlLogin.php",
+                    data: {'username': username, 'password': password},
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function(request,  error) {
+                        console.log(error);
+                    }
+                });
+            }
+        </script>
+
+    </body>
+</html>

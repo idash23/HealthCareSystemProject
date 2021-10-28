@@ -5,6 +5,8 @@ import edu.okcu.healthcaresystem.models.User;
 import edu.okcu.healthcaresystem.repository.DoctorRepository;
 import edu.okcu.healthcaresystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,15 @@ import java.util.List;
 public class UserService {
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired BCryptPasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
+    @Autowired
     private UserRepository repo;
 
     @Autowired
@@ -20,6 +31,7 @@ public class UserService {
 
     public User login(String email, String password) {
         User user = repo.findByEmailAndPassword(email, password);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }
 
@@ -34,11 +46,17 @@ public class UserService {
     }
 
     public void save(User user) {
-        user.setUserID(0L);
-        user.setSalt("add salt");
-        repo.save(user);
-    }
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUserID(0L);
+       //user.setSalt("add salt");
+        user.setSalt(user.getSalt());
+
+        repo.save(user);
+
+
+
+}
     public void saveDoc(Doctor doc) {
         doctorRepository.save(doc);
     }
@@ -48,7 +66,9 @@ public class UserService {
                 doctor.getGender(), doctor.getEmail());
 
 
+
     }
+
 
 
 

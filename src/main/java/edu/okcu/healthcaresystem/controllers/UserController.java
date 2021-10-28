@@ -60,6 +60,7 @@ public class UserController {
     @GetMapping("/user/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
+
         return "user/register";
     }
 
