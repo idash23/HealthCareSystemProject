@@ -45,7 +45,7 @@ public class UserService {
 
     public void save(User user) {
         user.setUserID(0L);
-        user.setSalt("add salt");
+        user.setSalt(user.getSalt());
         repo.save(user);
     }
 

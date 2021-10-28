@@ -40,8 +40,6 @@ public class DoctorController {
     @GetMapping("/doctor")
     public String getDoctors(Model model, String keyword) {
 
-        //  model.addAttribute("userTitles" , userTitleService.getUserTitles());
-
         if (keyword != null) {
             model.addAttribute("listPatients", patientRepository.findByKeyword(keyword));
         } else {
