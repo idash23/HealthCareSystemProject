@@ -53,8 +53,11 @@ public class UserService {
         personRepo.save(p);
     }
 
+    /*
     public void updatePerson(Person p) {
-        personRepo.updatePerson(p.getDOB(), p.getfName(), p.getmName(), p.getlName(),
+        personRepo.updatePerson( p.getfName(),  p.getlName(),
                 p.getGender(), p.getUserID());
-    }
+                */
+
+
 }

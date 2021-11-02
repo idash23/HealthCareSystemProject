@@ -1,8 +1,10 @@
 package edu.okcu.healthcaresystem.models;
 
+import antlr.Token;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user")
@@ -18,13 +20,26 @@ public class User {
     @Column(nullable = false, length = 64)
     private String password;
 
-    @Column(name="salt")
+    @Column(name = "salt")
     private String salt;
 
-    @Column(name="usertype")
-    private String userType;
+    @Column(name = "personType")
+    private String personType;
+
+    @Column(name = "token")
+    private String token;
+
+    @Column(name = "lastLogin")
+    private Timestamp lastLogin;
+
+    @Column(name = "TokenExpDate")
+    private Timestamp TokenExpDate;
+
+    @Column(name = "CountFailedLogin")
+    private long CountFailedLogin;
 
     public Long getUserID() {
+
         return userID;
     }
 
@@ -33,14 +48,17 @@ public class User {
     }
 
     public String getEmail() {
+
         return email;
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
     public String getPassword() {
+
         return password;
     }
 
@@ -50,15 +68,58 @@ public class User {
     }
 
     public String getSalt() {
+
         return salt;
     }
 
     public void setSalt(String salt) {
+
         this.salt = salt;
     }
 
-    public void setUserType(String userType) { this.userType = userType; }
+    public String getPersonType() {
+        return personType;
+    }
 
-    public String getUserType() { return userType; }
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
 
-}
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String Token) {
+        this.token = token;
+
+    }
+
+        public java.sql.Timestamp getLastLogin() {
+            return lastLogin;
+        }
+
+        public void setlastLogin (java.sql.Timestamp lastLogin) {
+            this.lastLogin = lastLogin;
+        }
+
+            public java.sql.Timestamp getTokenExpDate() {
+                return TokenExpDate;
+            }
+
+            public void setTokenExpDate(java.sql.Timestamp tokenExpDate) {
+                this.TokenExpDate = TokenExpDate;
+
+            }
+
+                public long getCountfailedLogin() {
+                    return CountFailedLogin;
+                }
+
+                public void setCountFailedLogin(long CountFailedLogin) {
+                    this.CountFailedLogin = CountFailedLogin;
+
+
+        }
+
+    }
+

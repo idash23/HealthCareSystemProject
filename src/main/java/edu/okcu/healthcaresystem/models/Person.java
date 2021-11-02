@@ -6,23 +6,20 @@ import javax.persistence.*;
 @Table(name = "person")
 public class Person {
     @Id
-    @Column(name="userid")
+    @Column(name="userID")
     private Long userID;
 
-    @Column(name="DOB")
-    private String DOB;
-
-    @Column(name="fname")
+    @Column(name="fName")
     private String fName;
 
-    @Column(name="mname")
-    private String mName;
-
     @Column(name="lname")
-    private String lName;
+    private String lname;
 
-    @Column(name="gender")
-    private String gender;
+   @Column(name="phoneNumber")
+    private long phoneNumber;
+
+    @Column(name="address")
+    private String address;
 
     public Long getUserID() {
         return userID;
@@ -32,10 +29,6 @@ public class Person {
         this.userID = userID;
     }
 
-    public String getDOB() { return DOB; }
-
-    public void setDOB(String DOB) { this.DOB = DOB; }
-
     public String getfName() {
         return fName;
     }
@@ -44,29 +37,30 @@ public class Person {
         this.fName = fName;
     }
 
-    public String getmName() {
-        return mName;
-    }
-
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
-
     public String getlName() {
-        return lName;
+        return lname;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setlname(String lName) {
+        this.lname = lname;
     }
 
-    public String getGender() {
-        return gender;
+    public long getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 
     public String toString(Doctor doctor){
         String text = "userID: " + doctor.getUserID() + " email: " + doctor.getEmail() + " fName: " + doctor.getfName() + " mName: " + doctor.getmName()
