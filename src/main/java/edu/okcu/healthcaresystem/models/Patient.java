@@ -1,79 +1,70 @@
 package edu.okcu.healthcaresystem.models;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "patient")
-public class Patient {
+public class Patient extends Person{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="userid")
     private Long userID;
-
-    @Column(nullable = false, unique = true, length = 45)
-    private String email;
 
     @Column(name="DOB")
     private String DOB;
 
-    @Column(name="first_name")
-    private String fName;
-
-    @Column(name="middle_name")
-    private String mName;
-
-    @Column(name="last_name")
-    private String lName;
-
     @Column(name="gender")
     private String gender;
+
+    @Column(name="allergies")
+    private String allergies;
+
+    @Column(name="insuranceinfo")
+    private String insuranceInfo;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "userid")
+    private List<Vital> vitals = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "userid")
+    private List<Visit> visits = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "userid")
+    private List<Vaccination> vacs = new ArrayList<>();
 
     public Long getUserID() { return userID; }
 
     public void setUserID(Long userID) { this.userID = userID; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getDOB() {return DOB;}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setDOB(String DOB) {this.DOB = DOB;}
 
-    public String getDOB() { return DOB; }
+    public String getGender() {return gender;}
 
-    public void setDOB(String DOB) { this.DOB = DOB; }
+    public void setGender(String gender) {this.gender = gender;}
 
-    public String getfName() {
-        return fName;
-    }
+    public String getAllergies() {return allergies;}
 
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
+    public void setAllergies(String allergies) {this.allergies = allergies;}
 
-    public String getmName() {
-        return mName;
-    }
+    public String getInsuranceInfo() {return insuranceInfo;}
 
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
+    public void setInsuranceInfo(String insuranceInfo) {this.insuranceInfo = insuranceInfo;}
 
-    public String getlName() {
-        return lName;
-    }
+    public List<Vital> getVitals() {return vitals;}
 
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
+    public void setVitals(List<Vital> vitals) {this.vitals = vitals;}
 
-    public String getGender() {
-        return gender;
-    }
+    public List<Visit> getVisits() {return visits;}
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+    public void setVisits(List<Visit> visits) {this.visits = visits;}
 
+    public List<Vaccination> getVacs() {return vacs;}
+
+    public void setVacs(List<Vaccination> vacs) {this.vacs = vacs;}
 }
