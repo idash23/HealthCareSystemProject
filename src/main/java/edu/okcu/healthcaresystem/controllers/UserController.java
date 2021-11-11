@@ -62,10 +62,16 @@ public class UserController {
     }
 
     @PostMapping(value = "/patient/save-patient/{userID}")
-    public String savePatient(Patient patient, @PathVariable Long userID) {
+    public String savePatient(Model model, Patient patient, @PathVariable Long userID) {
         System.out.println(patient.getGender());
 
-        patientService.updatePatient(patient);
+        patientService.updatePerson(patient);
+
+        System.out.println(patient.getDOB());
+        if(!(patient.getDOB().isEmpty()) && !(patient.getGender().isEmpty()) && !(patient.getAllergies().isEmpty())
+                && !(patient.getInsuranceInfo().isEmpty())){
+            patientService.updatePatient(patient);
+        }
 
         return "redirect:/patient?userID="+userID;
     }
@@ -143,7 +149,7 @@ public class UserController {
     public String doctorInfoPost(Person person, @PathVariable Long userID) {
         person.setUserID(userID);
         userService.updatePerson(person);
-        return "redirect:/"+ userService.userTypeByID(person.getUserID());
+        return "redirect:/"+ userService.userTypeByID(person.getUserID()) + "?userID="+person.getUserID();
     }
 
     @PostMapping(value = "/forget-post")

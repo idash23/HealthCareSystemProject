@@ -31,16 +31,12 @@ public class PatientService {
         visitRepo.save(v);
     }
 
-    public void updatePatient(Patient patient){
-        /*System.out.println(patient.getDOB());
-        System.out.println(patient.getGender());
-        System.out.println(patient.getAllergies());
-        System.out.println(patient.getInsuranceInfo());*/
-
+    public void updatePerson(Patient patient){
         personRepo.updatePerson(patient.getfName(), patient.getlName(), patient.getPhoneNumber(), patient.getAddress(),  patient.getUserID());
 
-        System.out.println(repo.findByUserID(patient.getUserID()));
+    }
 
+    public void updatePatient(Patient patient){
         if(repo.findByUserID(patient.getUserID())==null){
             repo.insert(patient.getUserID(), patient.getDOB(), patient.getGender(), patient.getAllergies(), patient.getInsuranceInfo());
         }else{
