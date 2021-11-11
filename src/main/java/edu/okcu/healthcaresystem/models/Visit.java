@@ -5,9 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "visit")
 public class Visit {
-    //use visitID as primary key
-    //@EmbeddedId
-    //private VisitKey visitKey;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

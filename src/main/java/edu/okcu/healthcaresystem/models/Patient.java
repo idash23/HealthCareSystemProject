@@ -41,18 +41,6 @@ public class Patient extends Person {
         this.insuranceInfo = insuranceInfo;
     }
 
-    /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "userid")
-    private List<Vital> vitals = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "userid")
-    private List<Visit> visits = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "userid")
-    private List<Vaccination> vacs = new ArrayList<>();*/
-
     public Long getUserID() { return userID; }
 
     public void setUserID(Long userID) { this.userID = userID; }

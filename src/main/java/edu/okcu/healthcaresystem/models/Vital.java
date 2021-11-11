@@ -5,9 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "vital")
 public class Vital {
-    /*@EmbeddedId
-    private VitalKey vitalKey;
-    */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,10 +21,6 @@ public class Vaccination {
     @Column(name="date")
     private String date;
 
-    /*public VacKey getVacKey() {return vacKey;}
-
-    public void setVacKey(VacKey vacKey) {this.vacKey = vacKey;}*/
-
     public Long getVacsID() {return vacsID;}
 
     public void setVacsID(Long vacsID) {this.vacsID = vacsID;}
