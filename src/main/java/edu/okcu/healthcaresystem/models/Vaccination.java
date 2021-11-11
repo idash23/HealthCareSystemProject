@@ -1,20 +1,19 @@
 package edu.okcu.healthcaresystem.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "vaccination")
 public class Vaccination {
-    @Id
-    @Column(name="userid")
-    private Long userID;
+    /*@EmbeddedId
+    private VacKey vacKey;*/
 
     @Id
-    @Column(name="vacsid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long vacsID;
+
+    @Column(name="userid")
+    private Long userID;
 
     @Column(name="name")
     private String name;
@@ -22,13 +21,17 @@ public class Vaccination {
     @Column(name="date")
     private String date;
 
-    public Long getUserID() {return userID;}
+    /*public VacKey getVacKey() {return vacKey;}
 
-    public void setUserID(Long userID) {this.userID = userID;}
+    public void setVacKey(VacKey vacKey) {this.vacKey = vacKey;}*/
 
     public Long getVacsID() {return vacsID;}
 
     public void setVacsID(Long vacsID) {this.vacsID = vacsID;}
+
+    public Long getUserID() {return userID;}
+
+    public void setUserID(Long userID) {this.userID = userID;}
 
     public String getName() {return name;}
 

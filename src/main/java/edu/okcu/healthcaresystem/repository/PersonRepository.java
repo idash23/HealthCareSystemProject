@@ -9,6 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @Transactional
     @Modifying
-    @Query("UPDATE Person p SET p.DOB = ?1, p.fName = ?2, p.mName = ?3, p.lName= ?4, p.gender = ?5  where p.userID = ?6")
-    void updatePerson(String DOB, String fName, String mName, String lName, String gender, Long userID);
+    @Query(value = "INSERT INTO Person VALUES(?1, ?2, ?3, ?4, ?5)", nativeQuery = true)
+    void insert(Long userID, String dob, String gender, String allergies, String insuranceInfo);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Person p SET p.fName = ?1, p.lName= ?2, p.phoneNumber = ?3, p.address = ?4  where p.userID = ?5", nativeQuery = true)
+    void updatePerson(String fName, String lName, String phoneNumber, String Address, Long userID);
+
+    @Query(value = "SELECT p FROM Person p WHERE p.userID = ?1")
+    Person findByUserID(Long userID);
 }

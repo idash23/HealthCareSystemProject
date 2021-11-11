@@ -1,18 +1,16 @@
 package edu.okcu.healthcaresystem.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "patient")
-public class Patient extends Person{
+@PrimaryKeyJoinColumn(name="userid")
+public class Patient extends Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="userid")
     private Long userID;
 
-    @Column(name="DOB")
+    @Column(name="dob")
     private String DOB;
 
     @Column(name="gender")
@@ -24,7 +22,26 @@ public class Patient extends Person{
     @Column(name="insuranceinfo")
     private String insuranceInfo;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    public Patient(){
+        super();
+        userID = 0L;
+        DOB = "";
+        gender = "X";
+        allergies = "";
+        insuranceInfo = "";
+    }
+
+    public Patient(Long userID, String fName, String lName, String phoneNumber, String address,
+                   Long userIDPatient, String DOB, String gender, String allergies, String insuranceInfo){
+        super(userID, fName, lName, phoneNumber, address);
+        this.userID = userIDPatient;
+        this.DOB = DOB;
+        this.gender = gender;
+        this.allergies = allergies;
+        this.insuranceInfo = insuranceInfo;
+    }
+
+    /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "userid")
     private List<Vital> vitals = new ArrayList<>();
 
@@ -34,7 +51,7 @@ public class Patient extends Person{
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "userid")
-    private List<Vaccination> vacs = new ArrayList<>();
+    private List<Vaccination> vacs = new ArrayList<>();*/
 
     public Long getUserID() { return userID; }
 
@@ -56,7 +73,7 @@ public class Patient extends Person{
 
     public void setInsuranceInfo(String insuranceInfo) {this.insuranceInfo = insuranceInfo;}
 
-    public List<Vital> getVitals() {return vitals;}
+    /*public List<Vital> getVitals() {return vitals;}
 
     public void setVitals(List<Vital> vitals) {this.vitals = vitals;}
 
@@ -66,5 +83,12 @@ public class Patient extends Person{
 
     public List<Vaccination> getVacs() {return vacs;}
 
-    public void setVacs(List<Vaccination> vacs) {this.vacs = vacs;}
+    public void setVacs(List<Vaccination> vacs) {this.vacs = vacs;}*/
+
+    /*public void setPerson(Person person, Patient patient){
+        patient.setfName(person.getfName());
+        patient.setlName(person.getlName());
+        patient.setPhoneNumber(person.getPhoneNumber());
+        patient.setAddress(person.getAddress());
+    }*/
 }

@@ -17,10 +17,12 @@
                 <ul>
 
                     <li><input type="text" placeholder="First Name" th:field="*{fName}"></li>
-                    <li><input type="text" placeholder="Middle Name (1 letter)" th:field="*{mName}"></li>
+                <!--    <li><input type="text" placeholder="Middle Name (1 letter)" th:field="*{mName}"></li> -->
                     <li><input type="text" placeholder="Last Name" th:field="*{lName}"></li>
+                    <li><input type="text" placeholder="Phone Number" th:field="*{phoneNumber}"></li>
+                    <li><input type="text" placeholder="Address" th:field="*{address}"></li>
 
-                    <li><input type="text" placeholder="Date of Birth"
+                <!--    <li><input type="text" placeholder="Date of Birth"
                                onfocus="(this.type='date')" onblur="(this.type='text')" name="DOB" th:field="*{DOB}"></li>
 
                     <li>
@@ -29,7 +31,7 @@
                             <option value="M">Male</option>
                             <option value="F">Female</option>
                         </select>
-                    </li>
+                    </li>-->
 
                     <li><button type="submit">Register</button></li>
                     <li><span class="error" th:text="${message}"></span></li>

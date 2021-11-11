@@ -1,11 +1,10 @@
 package edu.okcu.healthcaresystem.controllers;
 
-import edu.okcu.healthcaresystem.models.Doctor;
-import edu.okcu.healthcaresystem.models.Person;
-import edu.okcu.healthcaresystem.models.User;
+import edu.okcu.healthcaresystem.models.*;
 import edu.okcu.healthcaresystem.repository.DoctorRepository;
 import edu.okcu.healthcaresystem.repository.PatientRepository;
 import edu.okcu.healthcaresystem.repository.UserRepository;
+import edu.okcu.healthcaresystem.services.PatientService;
 import edu.okcu.healthcaresystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,7 +29,11 @@ public class UserController {
     @Autowired
     UserService userService;
     UserRepository userRepository;
-    PatientRepository patientRepository;
+
+    @Autowired
+    PatientService patientService;
+
+    @Autowired
     DoctorRepository doctorRepository;
     private String password;
 
@@ -43,9 +46,8 @@ public class UserController {
     @PostMapping("/process_login")
     public String login(@ModelAttribute("user") User user) {
         User authUser = userService.login(user.getEmail(), user.getPassword());
-        System.out.print(authUser);
         if (Objects.nonNull(authUser)) {
-            return "redirect:/" + userService.userTypeByEmail(user.getEmail());
+            return "redirect:/" + userService.userTypeByEmail(user.getEmail()) + "?userID=" + authUser.getUserID();
         } else {
             return "redirect:/";
         }
@@ -54,10 +56,55 @@ public class UserController {
     @GetMapping("/user/register")
     public String register(Model model) {
         model.addAttribute("user", new User());
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
-
+        //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //this.password = passwordEncoder.encode(password);
         return "user/register";
+    }
+
+    @PostMapping(value = "/patient/save-patient/{userID}")
+    public String savePatient(Patient patient, @PathVariable Long userID) {
+        System.out.println(patient.getGender());
+
+        patientService.updatePatient(patient);
+
+        return "redirect:/patient?userID="+userID;
+    }
+
+    @PostMapping(value = "/patient/save-vital/{userID}")
+    public String saveVital(Vital vital, @PathVariable Long userID) {
+        System.out.println("This is vital");
+
+        patientService.insertVital(vital, userID);
+
+        return "redirect:/patient?userID="+userID;
+    }
+
+    @PostMapping(value = "/patient/save-vacs/{userID}")
+    public String saveVisit(Vaccination vaccination, @PathVariable Long userID) {
+        System.out.println(userID);
+
+        patientService.insertVacs(vaccination, userID);
+
+        return "redirect:/patient?userID="+userID;
+    }
+
+    @PostMapping(value = "/patient/save-visit/{userID}")
+    public String saveVisit(Visit visit, @PathVariable Long userID) {
+        System.out.println(userID);
+
+        patientService.insertVisit(visit, userID);
+
+        return "redirect:/patient?userID="+userID;
+    }
+
+    @GetMapping("/patient/search-doctor")
+    public String searchDoctor(Model model, String keyword) {
+        if (keyword != null) {
+            model.addAttribute("listDoctors", doctorRepository.findByKeyword(keyword));
+        } else {
+            model.addAttribute("listDoctors", doctorRepository.findAll());
+        }
+        return "patient/search-doctor";
     }
 
     @GetMapping("/user/forget")
@@ -74,8 +121,10 @@ public class UserController {
 
     @PostMapping(value = "/user/register-post")
     public String registerPost(User user) {
-        System.out.println(user.getUserType());
+        System.out.println(user.getPersonType());
+
         userService.save(user);
+        System.out.println(user.getPassword());
 
         Person person = new Person();
         person.setUserID(userService.userID(user.getEmail()));

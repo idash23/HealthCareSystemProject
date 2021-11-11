@@ -17,65 +17,48 @@ public class User {
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 
-    @Column(nullable = false, length = 64)
+    @Column(name="password")
     private String password;
 
     @Column(name = "salt")
     private String salt;
 
-    @Column(name = "personType")
+    @Column(name = "persontype")
     private String personType;
 
     @Column(name = "token")
     private String token;
 
-    @Column(name = "lastLogin")
+    @Column(name = "lastlogin")
     private Timestamp lastLogin;
 
-    @Column(name = "TokenExpDate")
-    private Timestamp TokenExpDate;
+    @Column(name = "tokenexpdate")
+    private Timestamp tokenExpDate;
 
-    @Column(name = "CountFailedLogin")
-    private long CountFailedLogin;
+    @Column(name = "countfailedlogin")
+    private long countFailedLogin;
 
-    public Long getUserID() {
-
-        return userID;
-    }
+    public Long getUserID() {return userID;}
 
     public void setUserID(Long userID) {
         this.userID = userID;
     }
 
-    public String getEmail() {
+    public String getEmail() {return email;}
 
-        return email;
-    }
+    public void setEmail(String email) {this.email = email;}
 
-    public void setEmail(String email) {
-
-        this.email = email;
-    }
-
-    public String getPassword() {
-
-        return password;
-    }
+    public String getPassword() {return password;}
 
     public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
+        //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //this.password = passwordEncoder.encode(password);
+        this.password = password;
     }
 
-    public String getSalt() {
+    public String getSalt() {return salt;}
 
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-
-        this.salt = salt;
-    }
+    public void setSalt(String salt) {this.salt = salt;}
 
     public String getPersonType() {
         return personType;
@@ -89,37 +72,19 @@ public class User {
         return token;
     }
 
-    public void setToken(String Token) {
-        this.token = token;
+    public void setToken(String token) {this.token = token;}
 
-    }
+    public java.sql.Timestamp getLastLogin() {return lastLogin;}
 
-        public java.sql.Timestamp getLastLogin() {
-            return lastLogin;
-        }
+    public void setLastLogin(Timestamp lastLogin) {this.lastLogin = lastLogin;}
 
-        public void setlastLogin (java.sql.Timestamp lastLogin) {
-            this.lastLogin = lastLogin;
-        }
+    public java.sql.Timestamp getTokenExpDate() {return tokenExpDate;}
 
-            public java.sql.Timestamp getTokenExpDate() {
-                return TokenExpDate;
-            }
+    public void setTokenExpDate(Timestamp tokenExpDate) {this.tokenExpDate = tokenExpDate;}
 
-            public void setTokenExpDate(java.sql.Timestamp tokenExpDate) {
-                this.TokenExpDate = TokenExpDate;
+    public long getCountFailedLogin() {return countFailedLogin;}
 
-            }
+    public void setCountFailedLogin(long CountFailedLogin) {this.countFailedLogin = CountFailedLogin;}
 
-                public long getCountfailedLogin() {
-                    return CountFailedLogin;
-                }
-
-                public void setCountFailedLogin(long CountFailedLogin) {
-                    this.CountFailedLogin = CountFailedLogin;
-
-
-        }
-
-    }
+}
 

@@ -9,6 +9,8 @@ import edu.okcu.healthcaresystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -45,7 +47,12 @@ public class UserService {
 
     public void save(User user) {
         user.setUserID(0L);
-        user.setSalt(user.getSalt());
+        user.setSalt("salt to create");
+        user.setToken("token to create");
+        user.setLastLogin(new Timestamp(System.currentTimeMillis()));
+        user.setTokenExpDate(new Timestamp(System.currentTimeMillis()));
+        user.setCountFailedLogin(0);
+
         repo.save(user);
     }
 
@@ -53,11 +60,10 @@ public class UserService {
         personRepo.save(p);
     }
 
-    /*
+
     public void updatePerson(Person p) {
-        personRepo.updatePerson( p.getfName(),  p.getlName(),
-                p.getGender(), p.getUserID());
-                */
+        personRepo.updatePerson(p.getfName(), p.getlName(), p.getPhoneNumber(), p.getAddress(), p.getUserID());
+    }
 
 
 }

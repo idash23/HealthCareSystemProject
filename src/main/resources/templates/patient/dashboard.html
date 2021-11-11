@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <title>Dashboard for Patient</title>
     <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
 </head>
 
 <body>
 <div id="mySideNav" class="sideNav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Schedule</a>
-    <a href="#">Doctors</a>
+    <a href="#">Dashboard</a>
+    <!--<a th:href="@{patient/search-doctor(userID=${param.userID})}">Doc</a>-->
+    <a href="patient/search-doctor">Doctors</a>
     <a href="#">Insurance</a>
     <a href="#">Settings</a>
     <a href="/logout">Log out</a>
@@ -20,31 +22,137 @@
 <div id="main">
     <h1 style="cursor: pointer;" onclick="openNav()">Welcome to Patient Dashboard</h1>
 
-    <form th:action="@{/patient}"   method="get">
-    <input id="txtSearch" type="text" name="keyword" placeholder="Search for doctor...">
-    <button type="submit">search</button>
-    </form>
+    <ul>
+        <li>
+            <div class="dropdown">
+                <button onclick="dropDown(0)"class="dropbtn">Patient Personal Info <i class="fa fa-caret-down 0"></i></button>
+                <form th:action="@{/patient/save-patient/{userID}(userID=${param.userID})}" th:object="${patient}" method="POST">
+                    <table style = "border: 1px solid black" id = "myDropdown0" class="dropdown-content">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Gender</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Date Of Birth</th>
+                            <th>Allergies</th>
+                            <th>Insurance Information</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="patient: ${patient}">
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.fName}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.lName}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.gender}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.phoneNumber}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.address}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.DOB}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.allergies}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.insuranceInfo}"/></td>
+                        </tr>
+                        <tr><td><button type="submit">save</button></td></tr>
+                        </tbody>
 
-    <div>
-        <table style = "border: 1px solid black">
-            <thead class="thead-dark">
-            <tr>
-                <th>User ID</th>
-                <th>E-mail</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="doctor: ${listDoctors}">
-                <td th:text="${doctor.userID}">User ID</td>
-                <td th:text="${doctor.email}">E-mail</td>
-                <td th:text="${doctor.fName}">First Name</td>
-                <td th:text="${doctor.lName}">Last Name</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                    </table>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="dropdown">
+                <button onclick="dropDown(1)"class="dropbtn">Vitals <i class="fa fa-caret-down 1"></i></button>
+                <form th:action="@{/patient/save-vital/{userID}(userID=${param.userID})}" th:object="${listVitals}" method="POST">
+                    <table style = "border: 1px solid black" id = "myDropdown1" class="dropdown-content">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Date</th>
+                            <th>Height</th>
+                            <th>Weight</th>
+                            <th>Temperature</th>
+                            <th>Blood Pressure</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="vital: ${listVitals}">
+                            <td th:text="${vital.date}">Date</td>
+                            <td th:text="${vital.height}">Height</td>
+                            <td th:text="${vital.weight}">Weight</td>
+                            <td th:text="${vital.temp}">Temparute</td>
+                            <td th:text="${vital.bloodPress}">Blood Pressure</td>
+                        </tr>
+                        <tr th:each="vital: ${vital}">
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.date}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.height}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.weight}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.temp}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.bloodPress}"/></td>
+                        </tr>
+                        <tr><td><button type="submit">save</button></td></tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="dropdown">
+                <button onclick="dropDown(2)"class="dropbtn">Vaccinations <i class="fa fa-caret-down 2"></i></button>
+                <form th:action="@{/patient/save-vacs/{userID}(userID=${param.userID})}" th:object="${listVacs}" method="POST">
+                    <table style = "border: 1px solid black" id = "myDropdown2" class="dropdown-content">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="vacs: ${listVacs}">
+                            <td th:text="${vacs.date}">Date</td>
+                            <td th:text="${vacs.name}">Name</td>
+                        </tr>
+                        <tr th:each="vacs: ${vacs}">
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${vacs.date}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${vacs.name}"/></td>
+                        </tr>
+                        <tr><td><button type="submit">save</button></td></tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="dropdown">
+                <button onclick="dropDown(3)"class="dropbtn">Visit <i class="fa fa-caret-down 3"></i></button>
+                <form th:action="@{/patient/save-visit/{userID}(userID=${param.userID})}" th:object="${listVisits}" method="POST">
+                    <table style = "border: 1px solid black" id = "myDropdown3" class="dropdown-content">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Date</th>
+                            <th>Reason</th>
+                            <th>Note</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="visit: ${listVisits}">
+                            <td th:text="${visit.date}">Date</td>
+                            <td th:text="${visit.reason}">Reason</td>
+                            <td th:text="${visit.note}">Note</td>
+                        </tr>
+                        <tr th:each="visit: ${visit}">
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${visit.date}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${visit.reason}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${visit.note}"/></td>
+                        </tr>
+                        <tr><td><button type="submit">save</button></td></tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </li>
+    </ul>
+
 
     <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
         <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">logout</button>
@@ -63,6 +171,45 @@
         document.getElementById("main").style.marginLeft= "0";
 
     }
+
+    function dropDown(x) {
+        document.getElementById("myDropdown" + x).classList.toggle("show");
+        switchArrow(x);
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (x != i && openDropdown.classList.contains('show')) {
+                document.getElementById("myDropdown" + i).classList.remove("show");
+                switchArrow(i);
+            }
+        }
+    }
+
+    function switchArrow(x){
+        var icon=document.getElementsByClassName("fa-caret-down" + " " + x)[0];
+        if(icon){
+            icon.className = icon.className.replace("fa-caret-down" + " " + x, "fa-caret-up" + " " + x);
+        }
+        else{
+            icon=document.getElementsByClassName("fa-caret-up" + " " + x)[0];
+            icon.className = icon.className.replace("fa-caret-up" + " " + x, "fa-caret-down" + " " + x);
+        }
+    }
+
+    /*window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                    switchArrow(i);
+                }
+            }
+        }
+    }*/
+
+
 
 
 </script>

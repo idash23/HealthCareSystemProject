@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Doctor</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div id="mySideNav" class="sideNav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="../patient">Dashboard</a>
+    <a href="#">Doctors</a>
+    <a href="#">Insurance</a>
+    <a href="#">Settings</a>
+    <a href="/logout">Log out</a>
+</div>
+
+
+<div id="main">
+    <h1 style="cursor: pointer;" onclick="openNav()">Welcome to Patient Dashboard</h1>
+
+    <form th:action="@{/patient/search-doctor}"   method="get">
+        <input id="txtSearch" type="text" name="keyword" placeholder="Search for doctor...">
+        <button type="submit">search</button>
+    </form>
+
+    <div>
+        <table style = "border: 1px solid black">
+            <thead class="thead-dark">
+            <tr>
+                <th>User ID</th>
+                <th>E-mail</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="doctor: ${listDoctors}">
+                <td th:text="${doctor.userID}">User ID</td>
+                <td th:text="${doctor.email}">E-mail</td>
+                <td th:text="${doctor.fName}">First Name</td>
+                <td th:text="${doctor.lName}">Last Name</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+        <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">logout</button>
+
+    </form>
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySideNav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySideNav").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+
+    }
+
+
+</script>
+</body>
+</html>

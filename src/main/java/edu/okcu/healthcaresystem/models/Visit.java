@@ -1,20 +1,20 @@
 package edu.okcu.healthcaresystem.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "visit")
 public class Visit {
-    @Id
-    @Column(name="userid")
-    private Long userID;
+    //use visitID as primary key
+    //@EmbeddedId
+    //private VisitKey visitKey;
 
     @Id
-    @Column(name="visitid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long visitID;
+
+    @Column(name="userid")
+    private Long userID;
 
     @Column(name="reason")
     private String reason;
@@ -25,13 +25,17 @@ public class Visit {
     @Column(name="note")
     private String note;
 
-    public Long getUserID() {return userID;}
+    //public VisitKey getVisitKey() {return visitKey;}
 
-    public void setUserID(Long userID) {this.userID = userID;}
+    //public void setVisitKey(VisitKey visitKey) {this.visitKey = visitKey;}
 
     public Long getVisitID() {return visitID;}
 
     public void setVisitID(Long visitID) {this.visitID = visitID;}
+
+    public Long getUserID() {return userID;}
+
+    public void setUserID(Long userID) {this.userID = userID;}
 
     public String getReason() {return reason;}
 

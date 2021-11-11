@@ -1,20 +1,20 @@
 package edu.okcu.healthcaresystem.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "vital")
 public class Vital {
-    @Id
-    @Column(name="userid")
-    private Long userID;
+    /*@EmbeddedId
+    private VitalKey vitalKey;
+    */
 
     @Id
-    @Column(name="vitalid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long vitalID;
+
+    @Column(name="userid")
+    private Long userID;
 
     @Column(name="height")
     private int height;
@@ -31,13 +31,17 @@ public class Vital {
     @Column(name="date")
     private String date;
 
-    public Long getUserID() {return userID;}
+    /*public VitalKey getVitalKey() {return vitalKey;}
 
-    public void setUserID(Long userID) {this.userID = userID;}
+    public void setVitalKey(VitalKey vitalKey) {this.vitalKey = vitalKey;}*/
 
     public Long getVitalID() {return vitalID;}
 
     public void setVitalID(Long vitalID) {this.vitalID = vitalID;}
+
+    public Long getUserID() {return userID;}
+
+    public void setUserID(Long userID) {this.userID = userID;}
 
     public int getHeight() {return height;}
 
