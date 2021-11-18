@@ -31,24 +31,34 @@
       <thead class="thead-dark">
       <tr>
         <th>User ID</th>
-        <th>E-mail</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Gender</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Date Of Birth</th>
+        <th>Allergies</th>
+        <th>Insurance Information</th>
+        <th>Select Patient</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="patient: ${listPatients}">
         <td th:text="${patient.userID}">User ID</td>
-        <td th:text="${patient.email}">E-mail</td>
         <td th:text="${patient.fName}">First Name</td>
         <td th:text="${patient.lName}">Last Name</td>
+        <td th:text="${patient.gender}">Gender</td>
+        <td th:text="${patient.phoneNumber}">Phone Number</td>
+        <td th:text="${patient.address}">Address</td>
+        <td th:text="${patient.DOB}">Date of Birth</td>
+        <td th:text="${patient.allergies}">Allergies</td>
+        <td th:text="${patient.insuranceInfo}">Insurance Information</td>
+        <td><a th:href="@{/doctor/add-patient-info(patID=${patient.userID}, userID=${param.userID})}">select</a></td>
       </tr>
       </tbody>
     </table>
-
     <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
       <button class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">logout</button>
-
     </form>
   </div>
 

@@ -28,6 +28,9 @@ public class Vital {
     @Column(name="date")
     private String date;
 
+    @Column (name="modifyby")
+    private String modifyBy;
+
     /*public VitalKey getVitalKey() {return vitalKey;}
 
     public void setVitalKey(VitalKey vitalKey) {this.vitalKey = vitalKey;}*/
@@ -59,4 +62,8 @@ public class Vital {
     public String getDate() {return date;}
 
     public void setDate(String date) {this.date = date;}
+
+    public String getModifyBy(){ return modifyBy;}
+
+    public void setModifyBy(String modifyBy){ this.modifyBy = modifyBy;}
 }

@@ -7,6 +7,25 @@ ul {
     list-style-type: none;
 }
 
+.flex{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.li-person{
+    width:23%;
+}
+
+.lbl{
+    font-size: small;
+}
+
+.p-info{
+    margin-left: 23px;
+    padding-left: 2px;
+    border: none;
+}
+
 .container{
     display:flex;
     justify-content: center;

@@ -64,6 +64,4 @@ public class UserService {
     public void updatePerson(Person p) {
         personRepo.updatePerson(p.getfName(), p.getlName(), p.getPhoneNumber(), p.getAddress(), p.getUserID());
     }
-
-
 }

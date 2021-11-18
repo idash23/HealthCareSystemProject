@@ -22,15 +22,6 @@ public class PatientService {
     @Autowired
     private VaccinationRepository vacsRepo;
 
-    public void insertVisit(Visit visit, Long userID) {
-        Visit v = new Visit();
-        v.setUserID(userID);
-        v.setReason(visit.getReason());
-        v.setDate(visit.getDate());
-        v.setNote(visit.getNote());
-        visitRepo.save(v);
-    }
-
     public void updatePerson(Patient patient){
         personRepo.updatePerson(patient.getfName(), patient.getlName(), patient.getPhoneNumber(), patient.getAddress(),  patient.getUserID());
 
@@ -44,23 +35,22 @@ public class PatientService {
         }
     }
 
-    public void insertVital(Vital vital, Long userID) {
-        System.out.println("vital method");
-        Vital v = new Vital();
-        v.setUserID(userID);
-        v.setDate(vital.getDate());
-        v.setHeight(vital.getHeight());
-        v.setWeight(vital.getWeight());
-        v.setBloodPress(vital.getBloodPress());
-        v.setTemp(vital.getTemp());
-        vitalRepo.save(v);
+    public String getFirstAndLast(long userID){
+        System.out.println(userID);
+        Person p = personRepo.findByUserID(userID);
+        String fAndL = p.getfName() + " " + p.getlName();
+        return fAndL;
     }
 
-    public void insertVacs(Vaccination vaccination, Long userID) {
-        Vaccination v = new Vaccination();
-        v.setUserID(userID);
-        v.setName(vaccination.getName());
-        v.setDate(vaccination.getDate());
-        vacsRepo.save(v);
+    public void insertVisit(Visit visit) {
+        visitRepo.save(visit);
+    }
+
+    public void insertVital(Vital vital) {
+        vitalRepo.save(vital);
+    }
+
+    public void insertVacs(Vaccination vaccination) {
+        vacsRepo.save(vaccination);
     }
 }

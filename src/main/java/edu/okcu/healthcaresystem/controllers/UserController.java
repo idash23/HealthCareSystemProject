@@ -2,14 +2,14 @@ package edu.okcu.healthcaresystem.controllers;
 
 import edu.okcu.healthcaresystem.models.*;
 import edu.okcu.healthcaresystem.repository.DoctorRepository;
-import edu.okcu.healthcaresystem.repository.PatientRepository;
+import edu.okcu.healthcaresystem.repository.PersonRepository;
 import edu.okcu.healthcaresystem.repository.UserRepository;
+import edu.okcu.healthcaresystem.services.DoctorService;
 import edu.okcu.healthcaresystem.services.PatientService;
 import edu.okcu.healthcaresystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +32,12 @@ public class UserController {
 
     @Autowired
     PatientService patientService;
+
+    @Autowired
+    DoctorService doctorService;
+
+    @Autowired
+    PersonRepository personRepository;
 
     @Autowired
     DoctorRepository doctorRepository;
@@ -63,11 +69,8 @@ public class UserController {
 
     @PostMapping(value = "/patient/save-patient/{userID}")
     public String savePatient(Model model, Patient patient, @PathVariable Long userID) {
-        System.out.println(patient.getGender());
-
         patientService.updatePerson(patient);
 
-        System.out.println(patient.getDOB());
         if(!(patient.getDOB().isEmpty()) && !(patient.getGender().isEmpty()) && !(patient.getAllergies().isEmpty())
                 && !(patient.getInsuranceInfo().isEmpty())){
             patientService.updatePatient(patient);
@@ -78,39 +81,89 @@ public class UserController {
 
     @PostMapping(value = "/patient/save-vital/{userID}")
     public String saveVital(Vital vital, @PathVariable Long userID) {
-        System.out.println("This is vital");
-
-        patientService.insertVital(vital, userID);
+        String modify = userService.userTypeByID(userID) + " " + patientService.getFirstAndLast(userID);
+        vital.setModifyBy(modify);
+        patientService.insertVital(vital);
 
         return "redirect:/patient?userID="+userID;
     }
 
     @PostMapping(value = "/patient/save-vacs/{userID}")
     public String saveVisit(Vaccination vaccination, @PathVariable Long userID) {
-        System.out.println(userID);
-
-        patientService.insertVacs(vaccination, userID);
+        String modify = userService.userTypeByID(userID) + " " + patientService.getFirstAndLast(userID);
+        vaccination.setModifyBy(modify);
+        patientService.insertVacs(vaccination);
 
         return "redirect:/patient?userID="+userID;
     }
 
     @PostMapping(value = "/patient/save-visit/{userID}")
     public String saveVisit(Visit visit, @PathVariable Long userID) {
-        System.out.println(userID);
-
-        patientService.insertVisit(visit, userID);
+        String modify = userService.userTypeByID(userID) + " " + patientService.getFirstAndLast(userID);
+        visit.setModifyBy(modify);
+        patientService.insertVisit(visit);
 
         return "redirect:/patient?userID="+userID;
     }
 
+    @GetMapping("/doctor/add-patient-info")
+    public String addInfo(Model model, Long patID){
+        Person p = personRepository.findByUserID(patID);
+        model.addAttribute("person", p);
+        model.addAttribute("visit", new Visit());
+        model.addAttribute("vacs", new Vaccination());
+        model.addAttribute("vital", new Vital());
+        return "doctor/add-patient-info";
+    }
+
+    @PostMapping(value = "/doctor/save-visit")
+    public String saveVisitDoc(Visit visit, Long userID, Long patID) {
+        String modify = userService.userTypeByID(userID) + " " + patientService.getFirstAndLast(userID);
+        visit.setModifyBy(modify);
+        visit.setUserID(patID);
+        patientService.insertVisit(visit);
+
+        return "redirect:/doctor?userID="+userID;
+    }
+
+    @PostMapping(value = "/doctor/save-vacs")
+    public String saveVisitDoc(Vaccination vacs, Long userID, Long patID) {
+        String modify = userService.userTypeByID(userID) + " " + patientService.getFirstAndLast(userID);
+        vacs.setModifyBy(modify);
+        vacs.setUserID(patID);
+        patientService.insertVacs(vacs);
+
+        return "redirect:/doctor?userID="+userID;
+    }
+
+    @PostMapping(value = "/doctor/save-vital")
+    public String saveVitalDoc(Vital vital, Long userID, Long patID) {
+        String modify = userService.userTypeByID(userID) + " " + patientService.getFirstAndLast(userID);
+        vital.setModifyBy(modify);
+        vital.setUserID(patID);
+        patientService.insertVital(vital);
+
+        return "redirect:/doctor?userID="+userID;
+    }
+
     @GetMapping("/patient/search-doctor")
-    public String searchDoctor(Model model, String keyword) {
+    public String searchDoctor(Model model, String keyword, Long userID) {
         if (keyword != null) {
-            model.addAttribute("listDoctors", doctorRepository.findByKeyword(keyword));
+            model.addAttribute("listDoctors", doctorService.findByKeyword(keyword));
         } else {
-            model.addAttribute("listDoctors", doctorRepository.findAll());
+            model.addAttribute("listDoctors", doctorService.findAllByID());
         }
         return "patient/search-doctor";
+    }
+
+    @PostMapping("/patient/search-doctor")
+    public String postDoctor(Model model, String keyword, Long userID) {
+        if (keyword != null) {
+            model.addAttribute("listDoctors", doctorService.findByKeyword(keyword));
+        } else {
+            model.addAttribute("listDoctors", doctorService.findAllByID());
+        }
+        return "redirect:/patient/search-doctor?keyword="+keyword+"&userID="+userID;
     }
 
     @GetMapping("/user/forget")
@@ -127,10 +180,7 @@ public class UserController {
 
     @PostMapping(value = "/user/register-post")
     public String registerPost(User user) {
-        System.out.println(user.getPersonType());
-
         userService.save(user);
-        System.out.println(user.getPassword());
 
         Person person = new Person();
         person.setUserID(userService.userID(user.getEmail()));

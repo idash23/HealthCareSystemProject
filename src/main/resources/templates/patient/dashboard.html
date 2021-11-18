@@ -12,7 +12,7 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#">Dashboard</a>
     <!--<a th:href="@{patient/search-doctor(userID=${param.userID})}">Doc</a>-->
-    <a href="patient/search-doctor">Doctors</a>
+    <a th:href="@{patient/search-doctor(userID=${param.userID})}">Doctors</a>
     <a href="#">Insurance</a>
     <a href="#">Settings</a>
     <a href="/logout">Log out</a>
@@ -20,49 +20,54 @@
 
 
 <div id="main">
-    <h1 style="cursor: pointer;" onclick="openNav()">Welcome to Patient Dashboard</h1>
+    <h1 style="cursor: pointer;" onclick="openNav()" th:text="'Welcome back ' + ${patient.fName} + ' ' + ${patient.lName}" th:object="${patient}"></h1>
 
+    <div th:object="${patient}" style="width:100vw;">
+        <form th:action="@{/patient/save-patient/{userID}(userID=${param.userID})}" th:object="${patient}" method="POST">
+            <ul class="flex">
+                <li class="li-person">
+                    <label for="fname" class="lbl">First name:</label><br>
+                    <input type="text" class="p-info" id="fname" th:field="${patient.fName}"/>
+                </li>
+                <li class="li-person">
+                    <label for="lname" class="lbl">Last name:</label><br>
+                    <input type="text" class="p-info" id="lname" th:field="${patient.lName}"/>
+                </li>
+                <li class="li-person">
+                    <label for="DOB" class="lbl">Date Of Birth:</label><br>
+                    <input type="text" class="p-info" id="DOB" th:field="${patient.DOB}"/>
+                </li>
+                <li class="li-person">
+                    <label for="gender" class="lbl">Gender:</label><br>
+                    <input type="text" class="p-info" id="gender" th:field="${patient.gender}"/>
+                </li>
+                <li class="li-person">
+                    <label for="address" class="lbl">Address:</label><br>
+                    <input type="text" class="p-info" id="address" th:field="${patient.address}"/>
+                </li>
+                <li class="li-person">
+                    <label for="pNumber" class="lbl">Phone Number:</label><br>
+                    <input type="text" class="p-info" id="pNumber" th:field="${patient.phoneNumber}"/>
+                </li>
+                <li class="li-person">
+                    <label for="allergie" class="lbl">Allergies:</label><br>
+                    <input type="text" class="p-info" id="allergie" th:field="${patient.allergies}"/>
+                </li>
+                <li class="li-person">
+                    <label for="insurance" class="lbl">Insurance Information:</label><br>
+                    <input type="text" class="p-info" id="insurance" th:field="${patient.insuranceInfo}"/>
+                </li>
+            </ul>
+            <button type="submit">save</button>
+        </form>
+    </div>
+    <br>
     <ul>
         <li>
             <div class="dropdown">
-                <button onclick="dropDown(0)"class="dropbtn">Patient Personal Info <i class="fa fa-caret-down 0"></i></button>
-                <form th:action="@{/patient/save-patient/{userID}(userID=${param.userID})}" th:object="${patient}" method="POST">
-                    <table style = "border: 1px solid black" id = "myDropdown0" class="dropdown-content">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Gender</th>
-                            <th>Phone Number</th>
-                            <th>Address</th>
-                            <th>Date Of Birth</th>
-                            <th>Allergies</th>
-                            <th>Insurance Information</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="patient: ${patient}">
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.fName}"/></td>
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.lName}"/></td>
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.gender}"/></td>
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.phoneNumber}"/></td>
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.address}"/></td>
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.DOB}"/></td>
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.allergies}"/></td>
-                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${patient.insuranceInfo}"/></td>
-                        </tr>
-                        <tr><td><button type="submit">save</button></td></tr>
-                        </tbody>
-
-                    </table>
-                </form>
-            </div>
-        </li>
-        <li>
-            <div class="dropdown">
-                <button onclick="dropDown(1)"class="dropbtn">Vitals <i class="fa fa-caret-down 1"></i></button>
+                <button onclick="dropDown(0)"class="dropbtn">Vitals <i class="fa fa-caret-down 0"></i></button>
                 <form th:action="@{/patient/save-vital/{userID}(userID=${param.userID})}" th:object="${listVitals}" method="POST">
-                    <table style = "border: 1px solid black" id = "myDropdown1" class="dropdown-content">
+                    <table style = "border: 1px solid black" id = "myDropdown0" class="dropdown-content">
                         <thead class="thead-dark">
                         <tr>
                             <th>Date</th>
@@ -70,6 +75,7 @@
                             <th>Weight</th>
                             <th>Temperature</th>
                             <th>Blood Pressure</th>
+                            <th>Modify By</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,6 +85,7 @@
                             <td th:text="${vital.weight}">Weight</td>
                             <td th:text="${vital.temp}">Temparute</td>
                             <td th:text="${vital.bloodPress}">Blood Pressure</td>
+                            <td th:text="${vital.modifyBy}">Modify By</td>
                         </tr>
                         <tr th:each="vital: ${vital}">
                             <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.date}"/></td>
@@ -96,19 +103,21 @@
         </li>
         <li>
             <div class="dropdown">
-                <button onclick="dropDown(2)"class="dropbtn">Vaccinations <i class="fa fa-caret-down 2"></i></button>
+                <button onclick="dropDown(1)"class="dropbtn">Vaccinations <i class="fa fa-caret-down 1"></i></button>
                 <form th:action="@{/patient/save-vacs/{userID}(userID=${param.userID})}" th:object="${listVacs}" method="POST">
-                    <table style = "border: 1px solid black" id = "myDropdown2" class="dropdown-content">
+                    <table style = "border: 1px solid black" id = "myDropdown1" class="dropdown-content">
                         <thead class="thead-dark">
                         <tr>
                             <th>Date</th>
                             <th>Name</th>
+                            <th>Modify By</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="vacs: ${listVacs}">
                             <td th:text="${vacs.date}">Date</td>
                             <td th:text="${vacs.name}">Name</td>
+                            <td th:text="${vacs.modifyBy}">Modify By</td>
                         </tr>
                         <tr th:each="vacs: ${vacs}">
                             <td> <input type="text" style="width:95%; text-align: center;" th:field="${vacs.date}"/></td>
@@ -123,14 +132,15 @@
         </li>
         <li>
             <div class="dropdown">
-                <button onclick="dropDown(3)"class="dropbtn">Visit <i class="fa fa-caret-down 3"></i></button>
+                <button onclick="dropDown(2)"class="dropbtn">Visit <i class="fa fa-caret-down 2"></i></button>
                 <form th:action="@{/patient/save-visit/{userID}(userID=${param.userID})}" th:object="${listVisits}" method="POST">
-                    <table style = "border: 1px solid black" id = "myDropdown3" class="dropdown-content">
+                    <table style = "border: 1px solid black" id = "myDropdown2" class="dropdown-content">
                         <thead class="thead-dark">
                         <tr>
                             <th>Date</th>
                             <th>Reason</th>
                             <th>Note</th>
+                            <th>Modify By</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -138,6 +148,7 @@
                             <td th:text="${visit.date}">Date</td>
                             <td th:text="${visit.reason}">Reason</td>
                             <td th:text="${visit.note}">Note</td>
+                            <td th:text="${visit.modifyBy}">Modify By</td>
                         </tr>
                         <tr th:each="visit: ${visit}">
                             <td> <input type="text" style="width:95%; text-align: center;" th:field="${visit.date}"/></td>

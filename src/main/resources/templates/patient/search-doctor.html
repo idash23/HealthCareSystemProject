@@ -9,7 +9,7 @@
 <body>
 <div id="mySideNav" class="sideNav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="../patient">Dashboard</a>
+    <a th:href="@{/patient(userID=${param.userID})}">Dashboard</a>
     <a href="#">Doctors</a>
     <a href="#">Insurance</a>
     <a href="#">Settings</a>
@@ -18,9 +18,9 @@
 
 
 <div id="main">
-    <h1 style="cursor: pointer;" onclick="openNav()">Welcome to Patient Dashboard</h1>
+    <h1 style="cursor: pointer;" onclick="openNav()">Search For A Doctor</h1>
 
-    <form th:action="@{/patient/search-doctor}"   method="get">
+    <form th:action="@{/patient/search-doctor(userID=${param.userID})}" method="POST">
         <input id="txtSearch" type="text" name="keyword" placeholder="Search for doctor...">
         <button type="submit">search</button>
     </form>
@@ -38,9 +38,9 @@
             <tbody>
             <tr th:each="doctor: ${listDoctors}">
                 <td th:text="${doctor.userID}">User ID</td>
-                <td th:text="${doctor.email}">E-mail</td>
                 <td th:text="${doctor.fName}">First Name</td>
                 <td th:text="${doctor.lName}">Last Name</td>
+                <td th:text="${doctor.email}">E-mail</td>
             </tr>
             </tbody>
         </table>

@@ -20,10 +20,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query(value = "select * from Doctor d where d.fName like %:keyword% or d.lName like  %:keyword%" , nativeQuery = true)
     List<Doctor> findByKeyword(@Param("keyword") String keyword);
-
-
-
-
     }
 
 

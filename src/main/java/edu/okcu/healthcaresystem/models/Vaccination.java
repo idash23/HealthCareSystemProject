@@ -21,6 +21,9 @@ public class Vaccination {
     @Column(name="date")
     private String date;
 
+    @Column (name="modifyby")
+    private String modifyBy;
+
     public Long getVacsID() {return vacsID;}
 
     public void setVacsID(Long vacsID) {this.vacsID = vacsID;}
@@ -36,4 +39,8 @@ public class Vaccination {
     public String getDate() {return date;}
 
     public void setDate(String date) {this.date = date;}
+
+    public String getModifyBy(){ return modifyBy;}
+
+    public void setModifyBy(String modifyBy){ this.modifyBy = modifyBy;}
 }

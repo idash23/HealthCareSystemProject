@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Info</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+</head>
+<body>
+    <h1 th:text="'Patient: ' + ${person.fName} + ' ' + ${person.lName}" th:object="${person}"></h1>
+    <ul>
+        <li>
+            <div class="dropdown">
+                <button onclick="dropDown(0)"class="dropbtn">Visit <i class="fa fa-caret-down 0"></i></button>
+                <form th:action="@{/doctor/save-visit(patID=${param.patID}, userID=${param.userID})}" th:object="${visit}" method="POST">
+                    <table style = "border: 1px solid black" id = "myDropdown0" class="dropdown-content">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Date</th>
+                            <th>Reason</th>
+                            <th>Note</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="visit: ${visit}">
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${visit.date}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${visit.reason}"/></td>
+                            <td> <input type="text" style="width:95%; text-align: center;" th:field="${visit.note}"/></td>
+                        </tr>
+                        <tr><td><button type="submit">save</button></td></tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="dropdown">
+                <button onclick="dropDown(1)"class="dropbtn">Vitals <i class="fa fa-caret-down 1"></i></button>
+                <form th:action="@{/doctor/save-vital/(patID=${param.patID}, userID=${param.userID})}" th:object="${vitals}" method="POST">
+                    <table style = "border: 1px solid black" id = "myDropdown1" class="dropdown-content">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Date</th>
+                            <th>Height</th>
+                            <th>Weight</th>
+                            <th>Temperature</th>
+                            <th>Blood Pressure</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="vital: ${vital}">
+                                <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.date}"/></td>
+                                <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.height}"/></td>
+                                <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.weight}"/></td>
+                                <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.temp}"/></td>
+                                <td> <input type="text" style="width:95%; text-align: center;" th:field="${vital.bloodPress}"/></td>
+                            </tr>
+                            <tr><td><button type="submit">save</button></td></tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div class="dropdown">
+                <button onclick="dropDown(2)"class="dropbtn">Vaccinations <i class="fa fa-caret-down 2"></i></button>
+                <form th:action="@{/doctor/save-vacs/(patID=${param.patID}, userID=${param.userID})}" th:object="${vacs}" method="POST">
+                    <table style = "border: 1px solid black" id = "myDropdown2" class="dropdown-content">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="vacs: ${vacs}">
+                                <td> <input type="text" style="width:95%; text-align: center;" th:field="${vacs.date}"/></td>
+                                <td> <input type="text" style="width:95%; text-align: center;" th:field="${vacs.name}"/></td>
+                            </tr>
+                            <tr><td><button type="submit">save</button></td></tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </li>
+    </ul>
+    <a th:href="@{/doctor(userID=${param.userID})}" style="text-decoration: none;">Cancel</a>
+
+    <script>
+        function dropDown(x) {
+            document.getElementById("myDropdown" + x).classList.toggle("show");
+            switchArrow(x);
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (x != i && openDropdown.classList.contains('show')) {
+                    document.getElementById("myDropdown" + i).classList.remove("show");
+                    switchArrow(i);
+                }
+            }
+        }
+
+        function switchArrow(x){
+            var icon=document.getElementsByClassName("fa-caret-down" + " " + x)[0];
+            if(icon){
+                icon.className = icon.className.replace("fa-caret-down" + " " + x, "fa-caret-up" + " " + x);
+            }
+            else{
+                icon=document.getElementsByClassName("fa-caret-up" + " " + x)[0];
+                icon.className = icon.className.replace("fa-caret-up" + " " + x, "fa-caret-down" + " " + x);
+            }
+        }
+    </script>
+</body>
+</html>

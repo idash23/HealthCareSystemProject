@@ -22,6 +22,9 @@ public class Visit {
     @Column(name="note")
     private String note;
 
+    @Column (name="modifyby")
+    private String modifyBy;
+
     //public VisitKey getVisitKey() {return visitKey;}
 
     //public void setVisitKey(VisitKey visitKey) {this.visitKey = visitKey;}
@@ -45,4 +48,8 @@ public class Visit {
     public String getNote() {return note;}
 
     public void setNote(String note) {this.note = note;}
+
+    public String getModifyBy(){ return modifyBy;}
+
+    public void setModifyBy(String modifyBy){ this.modifyBy = modifyBy;}
 }
