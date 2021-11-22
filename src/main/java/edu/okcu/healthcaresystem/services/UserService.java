@@ -7,6 +7,7 @@ import edu.okcu.healthcaresystem.repository.DoctorRepository;
 import edu.okcu.healthcaresystem.repository.PersonRepository;
 import edu.okcu.healthcaresystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -25,8 +26,19 @@ public class UserService {
 
 
     public User login(String email, String password) {
-        User user = repo.findByEmailAndPassword(email, password);
-        return user;
+        //User user = repo.findByEmailAndPassword(email, password);
+        User user = repo.findByEmail(email);
+        String hashedPassword = user.getPassword();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        System.out.println(hashedPassword);
+        System.out.println(password);
+        if(passwordEncoder.matches(password, hashedPassword)){
+            return user;
+        }else{
+            return null;
+        }
+
     }
 
     public String userTypeByEmail(String email) {
@@ -47,6 +59,7 @@ public class UserService {
 
     public void save(User user) {
         user.setUserID(0L);
+        user.setPasswordAndHash(user.getPassword());
         user.setSalt("salt to create");
         user.setToken("token to create");
         user.setLastLogin(new Timestamp(System.currentTimeMillis()));

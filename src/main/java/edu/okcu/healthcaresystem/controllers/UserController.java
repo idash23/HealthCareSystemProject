@@ -51,6 +51,7 @@ public class UserController {
 
     @PostMapping("/process_login")
     public String login(@ModelAttribute("user") User user) {
+        System.out.println(user.getPassword());
         User authUser = userService.login(user.getEmail(), user.getPassword());
         if (Objects.nonNull(authUser)) {
             return "redirect:/" + userService.userTypeByEmail(user.getEmail()) + "?userID=" + authUser.getUserID();

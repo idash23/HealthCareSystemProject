@@ -56,6 +56,11 @@ public class User {
         this.password = password;
     }
 
+    public void setPasswordAndHash(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
+
     public String getSalt() {return salt;}
 
     public void setSalt(String salt) {this.salt = salt;}
