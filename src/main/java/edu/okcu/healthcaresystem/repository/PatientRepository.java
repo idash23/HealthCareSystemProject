@@ -23,11 +23,15 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
     @Query("SELECT d FROM Patient d WHERE d.fName LIKE %:keyword% OR d.lName LIKE  %:keyword%")
     List<Patient> findByKeyword(@Param("keyword") String keyword);
 
+    @Query("SELECT d FROM Patient d WHERE d.userID=?2 AND (d.fName LIKE %?1% OR d.lName LIKE  %?1%)")
+    Patient findMyPatientByKeyword(String keyword, long userID);
+
     @Query("SELECT p FROM Patient p WHERE p.userID = ?1")
     Patient findByUserID(Long userID);
 
     @Query("SELECT p.gender FROM Patient p WHERE p.userID = ?1")
     String getGender(Long userID);
+
     @Query("SELECT p.DOB FROM Patient p WHERE p.userID = ?1")
     String getDOB(Long userID);
 

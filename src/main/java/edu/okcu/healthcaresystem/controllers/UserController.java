@@ -51,10 +51,13 @@ public class UserController {
 
     @PostMapping("/process_login")
     public String login(@ModelAttribute("user") User user) {
-        System.out.println(user.getPassword());
         User authUser = userService.login(user.getEmail(), user.getPassword());
         if (Objects.nonNull(authUser)) {
-            return "redirect:/" + userService.userTypeByEmail(user.getEmail()) + "?userID=" + authUser.getUserID();
+            String Patient ="";
+            if(authUser.getPersonType().equals("doctor")){
+                Patient = "&patient=all";
+            }
+            return "redirect:/" + userService.userTypeByEmail(user.getEmail()) + "?userID=" + authUser.getUserID() + Patient;
         } else {
             return "redirect:/";
         }
@@ -124,7 +127,7 @@ public class UserController {
         visit.setUserID(patID);
         patientService.insertVisit(visit);
 
-        return "redirect:/doctor?userID="+userID;
+        return "redirect:/doctor?userID="+userID+"&patient=all";
     }
 
     @PostMapping(value = "/doctor/save-vacs")
@@ -134,7 +137,7 @@ public class UserController {
         vacs.setUserID(patID);
         patientService.insertVacs(vacs);
 
-        return "redirect:/doctor?userID="+userID;
+        return "redirect:/doctor?userID="+userID+"&patient=all";
     }
 
     @PostMapping(value = "/doctor/save-vital")
@@ -144,7 +147,7 @@ public class UserController {
         vital.setUserID(patID);
         patientService.insertVital(vital);
 
-        return "redirect:/doctor?userID="+userID;
+        return "redirect:/doctor?userID="+userID+"&patient=all";
     }
 
     @GetMapping("/patient/search-doctor")

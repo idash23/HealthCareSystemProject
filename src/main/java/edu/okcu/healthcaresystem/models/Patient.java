@@ -61,6 +61,16 @@ public class Patient extends Person {
 
     public void setInsuranceInfo(String insuranceInfo) {this.insuranceInfo = insuranceInfo;}
 
+    public String toString() {
+        return "Patient{" +
+                "userID=" + userID +
+                ", DOB='" + DOB + '\'' +
+                ", gender='" + gender + '\'' +
+                ", allergies='" + allergies + '\'' +
+                ", insuranceInfo='" + insuranceInfo + '\'' +
+                '}';
+    }
+
     /*public List<Vital> getVitals() {return vitals;}
 
     public void setVitals(List<Vital> vitals) {this.vitals = vitals;}

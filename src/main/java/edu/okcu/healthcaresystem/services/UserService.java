@@ -31,8 +31,6 @@ public class UserService {
         String hashedPassword = user.getPassword();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        System.out.println(hashedPassword);
-        System.out.println(password);
         if(passwordEncoder.matches(password, hashedPassword)){
             return user;
         }else{
@@ -60,7 +58,6 @@ public class UserService {
     public void save(User user) {
         user.setUserID(0L);
         user.setPasswordAndHash(user.getPassword());
-        user.setSalt("salt to create");
         user.setToken("token to create");
         user.setLastLogin(new Timestamp(System.currentTimeMillis()));
         user.setTokenExpDate(new Timestamp(System.currentTimeMillis()));

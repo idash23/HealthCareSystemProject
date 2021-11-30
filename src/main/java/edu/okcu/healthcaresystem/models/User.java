@@ -20,9 +20,6 @@ public class User {
     @Column(name="password")
     private String password;
 
-    @Column(name = "salt")
-    private String salt;
-
     @Column(name = "persontype")
     private String personType;
 
@@ -60,10 +57,6 @@ public class User {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
     }
-
-    public String getSalt() {return salt;}
-
-    public void setSalt(String salt) {this.salt = salt;}
 
     public String getPersonType() {
         return personType;

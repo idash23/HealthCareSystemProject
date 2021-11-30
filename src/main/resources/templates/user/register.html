@@ -8,7 +8,7 @@
 
 <body>
 <div class="container">
-  <form th:action="@{/user/register-post}" th:object="${user}" method="POST">
+  <form th:action="@{/user/register-post}" th:object="${user}" method="POST" onsubmit="return submit()">
     <div class="form">
       <div class="form-title">
         <h1>Create an Health Care account (Part 1/2)</h1>
@@ -27,8 +27,8 @@
 
           <!--<li><input type="text" placeholder="Date of Birth"
                      onfocus="(this.type='date')" onblur="(this.type='text')" name="DOB"> </li> -->
-          <li><input type="password" placeholder="Password" th:field="*{password}"></li>
-          <li><input type="password" placeholder="Confirm Password" name="cPassword"></li>
+          <li><input type="password" placeholder="Password" th:field="*{password}" id="psw"></li>
+          <li><input type="password" placeholder="Confirm Password" name="cPassword" id="pswc"></li>
           <li><button type="submit">Next Step</button></li>
           <li><span class="error" th:text="${message}"></span></li>
         </ul>
@@ -42,5 +42,11 @@
     </div>
   </form>
 </div>
+<script>
+  function submit(){
+    return document.getElementById("psw").value === (document.getElementById("pswc").value);
+  }
+
+</script>
 </body>
 </html>

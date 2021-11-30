@@ -86,7 +86,7 @@
             </div>
         </li>
     </ul>
-    <a th:href="@{/doctor(userID=${param.userID})}" style="text-decoration: none;">Cancel</a>
+    <a th:href="@{/doctor(userID=${param.userID}, patient='all')}" style="text-decoration: none;">Cancel</a>
 
     <script>
         function dropDown(x) {

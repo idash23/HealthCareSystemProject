@@ -78,10 +78,19 @@ public class Person {
         this.address = address;
     }
 
-
-    public String toString(Doctor doctor){
+    public String toSstring(Doctor doctor){
         String text = "userID: " + doctor.getUserID() + " email: " + doctor.getEmail() + " fName: " + doctor.getfName() + " mName: " + doctor.getmName()
                 + " lName: " + doctor.getlName() + " DOB: " + doctor.getDOB() + " gender: " + doctor.getGender();
         return text;
+    }
+
+    public String toString() {
+        return "Person{" +
+                "userID=" + userID +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
